@@ -1,0 +1,59 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #F3F4F6;
+}
+.button__wrapper {
+  text-align: center;
+  width: 100%;
+  margin: 50px 0 30px;
+}
+  .button {
+    border: 1px solid #F9C3E5;
+    background-color: #F9C3E5;
+    padding: 10px 0;
+    font-size: 1em;
+    color: #fff;
+    border-radius: 20px;
+    width: 80%;
+    box-shadow: 0 5px 5px #eee;
+    &.disabled {
+      background-color: #ddd;
+      border: 1px solid #eee;
+      box-shadow: none;
+    }
+  }
+
+.app {
+  position: relative;
+  min-height: 300px;
+}
+
+.loading {
+  text-align: center;
+}
+
+.icon__swap {
+  background-image: url('../icons/transfer.svg');
+  background-repeat: no-repeat;
+}
+.icon__currency-rate {
+  background-image: url('../icons/arrow.svg');
+  background-repeat: no-repeat;
+}
+.icon__change {
+  background-image: url('../icons/angle-arrow-down.svg');
+  background-repeat: no-repeat;
+}
+.icon__close {
+  background-image: url('../icons/close.svg');
+  background-repeat: no-repeat;
+}
+.icon__auto {
+  background-image: url('../icons/refresh.svg');
+  background-repeat: no-repeat;
+}

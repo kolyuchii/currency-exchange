@@ -1,0 +1,89 @@
+.exchange {
+  &__slot {
+    background-color: #fff;
+    padding: 20px;
+    &_currency {
+      font-size: 35px;
+      padding-right: 20px;
+      background-position: right;
+      background-size: 15px;
+      cursor: pointer;
+    }
+    &_balance {
+      font-size: .8em;
+      color: #5b5b5b;
+      display: inline-block;
+      cursor: pointer;
+      &.is-red {
+        color: #dd0010;
+      }
+    }
+  }
+  &__slot-from {
+    padding-bottom: 30px;
+    margin-bottom: -15px;
+  }
+  &__slot-to {
+    padding-top: 30px;
+    margin-top: -15px;
+    background-color: #F3F4F6;
+    .exchange__slot_value {
+      background-color: #F3F4F6;
+      border: none;
+    }
+  }
+  &__slot_wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+  }
+    &__slot_value {
+      text-align: right;
+      font-size: 35px;
+      outline-style: none;
+      min-width: 70%;
+    }
+  &__actions {
+    text-align: center;
+    position: relative;
+    height: 30px;
+    line-height: 30px;
+    color: #2667B6;
+    font-size: .8em;
+    &_swap {
+      position: absolute;
+      left: 20px;
+      width: 30px;
+      height: 100%;
+      background-color: #fff;
+      cursor: pointer;
+      border-radius: 15px;
+      border: 1px solid #F3F4F6;
+    }
+    .icon__swap {
+      background-size: 15px 15px;
+      background-position: 8px 7px;
+    }
+    &_currency-rate {
+      background-color: #fff;
+      border: 1px solid #F3F4F6;
+      border-radius: 15px;
+      display: inline-block;
+      padding: 0 10px 0 30px;
+      position: relative;
+
+      .icon__currency-rate {
+        width: 16px;
+        height: 16px;
+        position: absolute;
+        left: 8px;
+        top: 6px;
+      }
+    }
+  }
+  &__error {
+    color: #dd0010;
+    font-size: .8em;
+    padding: 20px;
+  }
+}

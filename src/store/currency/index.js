@@ -28,7 +28,7 @@ const initialState = {
  */
 export function fetchCurrencies() {
     return function (dispatch) {
-        fetch(GET_CURRENCIES_API_URL)
+        return fetch(GET_CURRENCIES_API_URL)
             .then(response => {
                 return response.json();
             })

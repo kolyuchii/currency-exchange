@@ -99,7 +99,6 @@ class ExchangeContainer extends Component {
         });
     }
     onValueFromChanged(event) {
-        debugger; // eslint-disable-line no-debugger
         const value = getValue(event.currentTarget.value);
         this.setState({
             valueFrom: value,

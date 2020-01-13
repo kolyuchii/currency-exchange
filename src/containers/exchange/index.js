@@ -99,16 +99,17 @@ class ExchangeContainer extends Component {
         });
     }
     onValueFromChanged(event) {
-        const value = Number(event.currentTarget.value.replace(/\D/, ''));
+        debugger; // eslint-disable-line no-debugger
+        const value = getValue(event.currentTarget.value);
         this.setState({
             valueFrom: value,
-            valueTo: this.getValueTo(value),
+            valueTo: this.getValueTo(Number(value)),
         });
     }
     onValueToChanged(event) {
-        const value = Number(event.currentTarget.value.replace(/\D/, ''));
+        const value = getValue(event.currentTarget.value);
         this.setState({
-            valueFrom: this.getValueFrom(value),
+            valueFrom: this.getValueFrom(Number(value)),
             valueTo: value,
         });
     }
@@ -195,6 +196,15 @@ class ExchangeContainer extends Component {
             this.fetchRatesTimer = null;
         }
     }
+}
+
+function getValue(value) {
+    value = value.replace(/[^\d.]/g, '');
+    const arr = value.split('.');
+    if (arr[1]) {
+        arr[1] = arr[1].substr(0, 2);
+    }
+    return arr.join('.');
 }
 
 function getCurrencySign(currencyName, value) {

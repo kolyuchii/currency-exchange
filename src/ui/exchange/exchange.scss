@@ -1,3 +1,5 @@
+@import 'src/styles/variables';
+
 .exchange {
   &__slot {
     background-color: #fff;
@@ -5,6 +7,7 @@
     &_currency {
       font-size: 35px;
       padding-right: 20px;
+      margin-right: 10px;
       background-position: right;
       background-size: 15px;
       cursor: pointer;
@@ -12,8 +15,10 @@
     &_balance {
       font-size: .8em;
       color: #5b5b5b;
-      display: inline-block;
+      display: block;
+      margin: 0 auto;
       cursor: pointer;
+      max-width: $max-width;
       &.is-red {
         color: #dd0010;
       }
@@ -29,19 +34,20 @@
     background-color: #F3F4F6;
     .exchange__slot_value {
       background-color: #F3F4F6;
-      border: none;
     }
   }
   &__slot_wrapper {
     display: flex;
-    justify-content: center;
-    margin-bottom: 5px;
+    justify-content: space-between;
+    margin: 0 auto 5px;
+    max-width: $max-width;
   }
     &__slot_value {
       text-align: right;
       font-size: 35px;
       outline-style: none;
       min-width: 70%;
+      border: 1px solid #aaa;
     }
   &__actions {
     text-align: center;
@@ -50,6 +56,8 @@
     line-height: 30px;
     color: #2667B6;
     font-size: .8em;
+    max-width: $max-width;
+    margin: 0 auto;
     &_swap {
       position: absolute;
       left: 20px;

@@ -13,17 +13,18 @@ body {
   margin: 50px 0 30px;
 }
   .button {
-    border: 1px solid #F9C3E5;
-    background-color: #F9C3E5;
+    border: 1px solid #d47296;
+    background-color: #d47296;
     padding: 10px 0;
     font-size: 1em;
     color: #fff;
     border-radius: 20px;
     width: 80%;
+    max-width: 500px;
     box-shadow: 0 5px 5px #eee;
     &.disabled {
-      background-color: #ddd;
-      border: 1px solid #eee;
+      background-color: #F9C3E5;
+      border: 1px solid #F9C3E5;
       box-shadow: none;
     }
   }

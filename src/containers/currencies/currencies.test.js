@@ -1,36 +1,36 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { act } from 'react-dom/test-utils';
-import CurrenciesContainer from './index';
-import store from "store";
+// eslint-disable-next-line no-unused-vars
+import setupTests from "../../setupTests";
+import { CurrenciesContainer } from './index';
+import { mount } from "enzyme";
+import store from 'store';
 import {Provider} from "react-redux";
 
-let container;
-
-beforeEach(() => {
-    container = document.createElement('div');
-    document.body.appendChild(container);
-});
-
-afterEach(() => {
-    document.body.removeChild(container);
-    container = null;
-});
 describe('<CurrenciesContainer />', () => {
+    const currencies = [
+        [
+            'EUR',
+            'Euro'
+        ],
+        [
+            'GBP',
+            'British Pound Sterling'
+        ],
+        [
+            'USD',
+            'United States Dollar'
+        ],
+    ];
     it('render title in currencies container', () => {
-        act(() => {
-            ReactDOM.render(<Provider store={store}>
-                <CurrenciesContainer />
-            </Provider>, container);
-        });
-        expect(container.querySelector('.header__title').textContent).toBe('Currencies');
-    });
-    it('render items currencies container', () => {
-        act(() => {
-            ReactDOM.render(<Provider store={store}>
-                <CurrenciesContainer />
-            </Provider>, container);
-        });
-        expect(container.querySelectorAll('.currency').length).toBe(0);
+        const wrapper = mount(
+            <Provider store={store}>
+                <CurrenciesContainer
+                    currencies={currencies}
+                />
+            </Provider>
+        );
+        expect(wrapper.find('.header__title').text()).toBe('Currencies');
+        expect(wrapper.find('.currency').length).toBe(currencies.length);
+        expect(wrapper.find('.currency').at(0).find('.currency__description').text()).toBe(currencies[0][1]);
     });
 });

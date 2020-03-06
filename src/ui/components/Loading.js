@@ -7,8 +7,8 @@ const LoadingComponent = (props) => {
             <h3>
                 {props.networkErrorMessage ? (
                     <div className="error">
-                        <p>{props.networkErrorMessage}</p>
-                        <a href="javascript:void(0)" onClick={reload}>Reload the page and try again</a>
+                        <p className="error__text">{props.networkErrorMessage}</p>
+                        <a href="/" onClick={reload}>Reload the page and try again</a>
                     </div>
                 ) : 'Loading...'}
             </h3>
@@ -16,7 +16,8 @@ const LoadingComponent = (props) => {
     )
 };
 
-function reload() {
+function reload(event) {
+    event.preventDefault();
     window.location.reload();
 }
 

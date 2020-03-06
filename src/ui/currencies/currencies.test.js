@@ -1,30 +1,31 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+// eslint-disable-next-line no-unused-vars
+import setupTests from "../../setupTests";
+import { shallow, mount } from "enzyme";
 import CurrenciesComponent from './index';
-import { act } from 'react-dom/test-utils';
+import CurrencyComponent from 'ui/components/Currency';
 
-let container;
-
-beforeEach(() => {
-    container = document.createElement('div');
-    document.body.appendChild(container);
-});
-
-afterEach(() => {
-    document.body.removeChild(container);
-    container = null;
-});
 describe('<CurrenciesComponent />', () => {
     it('render CurrenciesComponent', () => {
-        const currencies = [
-            <div key="1" className="currency"/>,
-            <div key="2" className="currency"/>,
-            <div key="3" className="currency"/>,
-            <div key="4" className="currency"/>,
+        const data = [
+            {
+                isActive: true,
+                id: 'USD',
+                description: 'description'
+            }
         ];
-        act(() => {
-            ReactDOM.render(<CurrenciesComponent currencies={currencies} />, container);
+        const currencies = data.map(item => {
+            return (
+                <CurrencyComponent {...item} />
+            )
         });
-        expect(container.querySelectorAll('.currency').length).toBe(4);
+        const wrapper = mount(
+            <CurrenciesComponent
+                currencies={currencies}
+            />
+        );
+
+
+        expect(wrapper.find('.currency').length).toBe(data.length);
     });
 });

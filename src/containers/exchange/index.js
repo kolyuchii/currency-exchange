@@ -3,9 +3,8 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
 
-import HeaderContainer from 'containers/header';
+import AppComponent from "ui/app";
 import ExchangeComponent from 'ui/exchange';
-import LoadingComponent from 'ui/components/Loading';
 import {
     fetchExchangeRates,
     updatePockets,
@@ -14,9 +13,10 @@ import {
     setCurrency,
 } from 'store/currency';
 import {
-    CURRENCY_ID_TO_SIGN_MAP,
     FETCH_RATES_TIMEOUT,
 } from 'config';
+import getCurrencySign from './get-currency-sign';
+import parseValue from './parse-value';
 
 class ExchangeContainer extends Component {
     constructor(props) {
@@ -29,15 +29,16 @@ class ExchangeContainer extends Component {
     }
     render() {
         return (
-            <div className="app">
-                <HeaderContainer
-                    title="Exchange"
-                />
-                {this.props.exchangeRates ? this.getExchangeContainer() : this.getLoading()}
-            </div>
+            <AppComponent
+                page={this.getExchangeContainer()}
+                title="Exchange"
+            />
         );
     }
     getExchangeContainer() {
+        if (!this.props.exchangeRates) {
+            return null;
+        }
         const {
             currencyFrom,
             currencyTo,
@@ -99,14 +100,14 @@ class ExchangeContainer extends Component {
         });
     }
     onValueFromChanged(event) {
-        const value = getValue(event.currentTarget.value);
+        const value = parseValue(event.currentTarget.value);
         this.setState({
             valueFrom: value,
             valueTo: this.getValueTo(Number(value)),
         });
     }
     onValueToChanged(event) {
-        const value = getValue(event.currentTarget.value);
+        const value = parseValue(event.currentTarget.value);
         this.setState({
             valueFrom: this.getValueFrom(Number(value)),
             valueTo: value,
@@ -125,13 +126,6 @@ class ExchangeContainer extends Component {
             exchangeRates,
         } = this.props;
         return value ? (value * exchangeRates[currencyTo]).toFixed(2) : '';
-    }
-    getLoading() {
-        return (
-            <LoadingComponent
-                networkErrorMessage={this.props.networkErrorMessage || this.props.exchangeRatesError}
-            />
-        );
     }
     onSubmit(event) {
         event.preventDefault();
@@ -197,27 +191,12 @@ class ExchangeContainer extends Component {
     }
 }
 
-function getValue(value) {
-    value = value.replace(/[^\d.]/g, '');
-    const arr = value.split('.');
-    if (arr[1]) {
-        arr[1] = arr[1].substr(0, 2);
-    }
-    return arr.join('.');
-}
-
-function getCurrencySign(currencyName, value) {
-    const sign = CURRENCY_ID_TO_SIGN_MAP[currencyName] || '';
-    return `${sign}${value}`;
-}
-
 ExchangeContainer.propTypes = {
     actions: PropTypes.object,
     currencyFrom: PropTypes.string,
     currencyTo: PropTypes.string,
     exchangeRates: PropTypes.object,
     history: PropTypes.object,
-    networkErrorMessage: PropTypes.string,
     pockets: PropTypes.object,
     exchangeRatesError: PropTypes.string,
 };
@@ -231,7 +210,6 @@ function mapStateToProps(state) {
         balanceFrom: state.exchange.balanceFrom,
         balanceTo: state.exchange.balanceTo,
         pockets: state.exchange.pockets,
-        networkErrorMessage: state.exchange.networkErrorMessage,
     }
 }
 

@@ -3,33 +3,32 @@ import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import PropTypes from 'prop-types';
 
-import HeaderContainer from 'containers/header';
+import AppComponent from "ui/app";
 import {
     fetchCurrencies,
     setCurrency,
 } from 'store/currency';
 import CurrenciesComponent from 'ui/currencies';
-import LoadingComponent from 'ui/components/Loading';
 import CurrencyComponent from 'ui/components/Currency'
 import {
     DEFAULT_SYMBOLS,
 } from 'config';
 
-class CurrenciesContainer extends Component {
+export class CurrenciesContainer extends Component {
     render() {
         return (
-            <div className="app">
-                <HeaderContainer
-                    onClose={this.onClose.bind(this)}
-                    title="Currencies"
-                />
-
-                {this.props.currencies ? this.getCurrencies() : this.getLoading()}
-            </div>
+            <AppComponent
+                onClose={this.onClose.bind(this)}
+                title="Currencies"
+                page={this.getCurrencies()}
+            />
         )
     }
 
-    getCurrencies(){
+    getCurrencies() {
+        if (!this.props.currencies) {
+            return null;
+        }
         const currencies = this.props.currencies.map((currency, index) => {
             const [
                 id,
@@ -51,13 +50,6 @@ class CurrenciesContainer extends Component {
                 currencies={currencies}
             />
         )
-    }
-    getLoading() {
-        return (
-            <LoadingComponent
-                networkErrorMessage={this.props.networkErrorMessage}
-            />
-        );
     }
 
     onClick(event) {
@@ -83,7 +75,6 @@ class CurrenciesContainer extends Component {
 
 CurrenciesContainer.propTypes = {
     currencies: PropTypes.array,
-    networkErrorMessage: PropTypes.string,
     actions: PropTypes.object,
     history: PropTypes.object,
     currencyFrom: PropTypes.string,
@@ -96,7 +87,6 @@ function mapStateToProps(state) {
         currencies: state.currency.currencies,
         currencyFrom: state.currency.currencyFrom,
         currencyTo: state.currency.currencyTo,
-        networkErrorMessage: state.exchange.networkErrorMessage,
     }
 }
 

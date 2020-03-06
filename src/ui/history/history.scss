@@ -2,6 +2,7 @@
   background-color: #fff;
   padding-bottom: 20px;
   box-shadow: 0 5px 5px #ddd;
+
   &__steps {
     list-style: none;
     display: flex;
@@ -13,6 +14,7 @@
       text-align: center;
       border-top: 3px solid #fff;
       padding: 5px 0;
+      cursor: pointer;
       &.is-active {
         border-color: #2667B6;
       }

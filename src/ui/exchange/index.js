@@ -55,7 +55,7 @@ const ExchangeComponent = props => {
             <div className="exchange__actions">
                 <div className="exchange__actions_swap icon__swap" onClick={onSwap} />
                 <div className="exchange__actions_currency-rate" onClick={onRateClick}>
-                    <span className="icon icon__currency-rate"/> {rateFrom} = {rateTo}
+                    <span className="icon icon__currency-rate"/>{rateFrom} = {rateTo}
                 </div>
             </div>
             <div className="exchange__slot exchange__slot-to">

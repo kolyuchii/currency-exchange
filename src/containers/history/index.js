@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import Chart from 'chart.js';
-import HeaderContainer from 'containers/header';
 import HistoryComponent from 'ui/history';
-import LoadingComponent from 'ui/components/Loading';
 import {bindActionCreators} from 'redux';
 import {
     fetchHistory
@@ -13,6 +10,8 @@ import {connect} from "react-redux";
 import {
     PERIODS_MAP,
 } from 'config';
+import AppComponent from "ui/app";
+import createChart from './create-chart';
 
 class HistoryContainer extends Component {
     constructor(props) {
@@ -27,24 +26,17 @@ class HistoryContainer extends Component {
     }
     render() {
         return (
-            <div className="app">
-                <HeaderContainer
-                    onClose={this.onClose.bind(this)}
-                    title="History"
-                />
-
-                {this.props.historyRates ? this.getHistory() : this.getLoading()}
-            </div>
-        );
-    }
-    getLoading() {
-        return (
-            <LoadingComponent
-                networkErrorMessage={this.props.networkErrorMessage}
+            <AppComponent
+                onClose={this.onClose.bind(this)}
+                title="History"
+                page={this.getHistory()}
             />
         );
     }
     getHistory() {
+        if (!this.props.historyRates) {
+            return null;
+        }
         return (
             <HistoryComponent
                 chartRef={this.elChart}
@@ -63,46 +55,9 @@ class HistoryContainer extends Component {
     }
 
     componentDidUpdate() {
-        const labels = [];
-        const data = [];
-        Object.entries(this.props.historyRates).forEach(item => {
-            const [
-                label,
-                value,
-            ] = item;
-            labels.push(label.split('-')[2]);
-            data.push(value[this.state.to]);
-        });
-        new Chart(this.elChart.current.getContext('2d'), {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: `${this.state.from} -> ${this.state.to}`,
-                    backgroundColor: '#C7DFFA',
-                    borderColor: '#267BCC',
-                    data: data
-                }]
-            },
-            options: {
-                scales: {
-                    xAxes: [{
-                        ticks: {
-                            display: false,
-                        },
-                    }],
-                    yAxes: [{
-                        ticks: {
-                            display: false,
-                            beginAtZero: false,
-                            suggestedMin: Math.min.apply(Math, data),
-                        }
-                    }]
-                },
-                legend: {
-                    display: true,
-                }
-            }
+        createChart(this.elChart, this.props.historyRates, {
+            from: this.state.from,
+            to: this.state.to,
         });
     }
 
@@ -128,14 +83,11 @@ HistoryContainer.propTypes = {
     actions: PropTypes.object,
     match: PropTypes.object,
     historyRates: PropTypes.object,
-    networkErrorMessage: PropTypes.string,
-
 };
 
 function mapStateToProps(state) {
     return {
         historyRates: state.history.historyRates,
-        networkErrorMessage: state.exchange.networkErrorMessage,
     }
 }
 

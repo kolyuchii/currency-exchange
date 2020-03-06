@@ -20,4 +20,3 @@ See `POCKETS` in the `/src/config.js`
 Also, you can choose another currency to exchange by tapping on the currency id
 
 History of the currency rating available by pressing at the "currency rate" element
-

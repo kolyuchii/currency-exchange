@@ -7,7 +7,7 @@ const CurrenciesComponent = props => {
         currencies,
     } = props;
     return (
-        <div>{currencies}</div>
+        <div className="currencies">{currencies}</div>
     );
 };
 

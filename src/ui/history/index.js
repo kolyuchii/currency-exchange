@@ -5,6 +5,9 @@ import classnames from 'classnames';
 
 const HistoryComponent = props => {
     function getPeriods() {
+        if (!props.periods) {
+            return null;
+        }
         return props.periods.map((period, index) => {
             const periodClassNames = classnames({
                 'history__steps-item': true,

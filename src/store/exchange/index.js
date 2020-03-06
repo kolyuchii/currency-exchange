@@ -18,7 +18,7 @@ export function fetchExchangeRates(base, symbols = DEFAULT_SYMBOLS.join(',')) {
                 [symbols]: 1
             }));
         } else {
-            fetch(`${GET_RATES_API_URL}&base=${base}&symbols=${symbols}`, {signal})
+           return fetch(`${GET_RATES_API_URL}&base=${base}&symbols=${symbols}`, {signal})
                 .then(response => {
                     return response.json();
                 })

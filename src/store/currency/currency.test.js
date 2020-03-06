@@ -9,12 +9,12 @@ import {
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-describe('async actions', () => {
+describe('Currency store', () => {
     afterEach(() => {
         fetchMock.restore()
     });
 
-    it('creates FETCH_TODOS_SUCCESS when fetching todos has been done', () => {
+    it('Fetch currencies', () => {
         fetchMock.getOnce(GET_CURRENCIES_API_URL, {'USD': 'description'});
 
         const expectedActions = [

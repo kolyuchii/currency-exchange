@@ -11,11 +11,8 @@ const initialState = {
 
 export function fetchHistory(base, symbol, period) {
     return function (dispatch) {
-        const periodInDays = PERIODS_MAP[period] || MAX_HISTORY_RATE_PERIOD;
-        const currentDate = new Date();
-        const startDate = getDate(new Date(currentDate.setDate(currentDate.getDate() - periodInDays)));
-        const endDate = getDate();
-        fetch(`${GET_HISTORY_RATES_API_URL}?base=${base}&symbols=${symbol}&start_at=${startDate}&end_at=${endDate}`)
+        const dates = getDates(period);
+        return fetch(`${GET_HISTORY_RATES_API_URL}?base=${base}&symbols=${symbol}&start_at=${dates.start}&end_at=${dates.end}`)
             .then(response => {
                 return response.json();
             })
@@ -25,6 +22,14 @@ export function fetchHistory(base, symbol, period) {
             .catch(response => {
                 dispatch(setNetworkError(response.message));
             });
+    }
+}
+export function getDates(period) {
+    const periodInDays = PERIODS_MAP[period] || MAX_HISTORY_RATE_PERIOD;
+    const currentDate = new Date();
+    return {
+        start: getDate(new Date(currentDate.setDate(currentDate.getDate() - periodInDays))),
+        end: getDate(),
     }
 }
 function getDate(date) {

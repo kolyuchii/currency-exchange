@@ -27,5 +27,7 @@ describe('<CurrenciesComponent />', () => {
 
 
         expect(wrapper.find('.currency').length).toBe(data.length);
+        expect(wrapper.find('.currency__name').text()).toBe(data[0].id);
+        expect(wrapper.find('.currency__description').text()).toBe(data[0].description);
     });
 });

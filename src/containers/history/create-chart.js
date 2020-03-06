@@ -1,6 +1,10 @@
 import Chart from "chart.js";
 
 export default (element, historyRates, range) => {
+    const context = element.current.getContext('2d');
+    if (!context) {
+        return null;
+    }
     const labels = [];
     const data = [];
     Object.entries(historyRates).forEach(item => {

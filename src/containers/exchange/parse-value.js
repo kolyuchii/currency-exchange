@@ -1,4 +1,5 @@
 export default value => {
+    value = String(value);
     value = value.replace(/[^\d.]/g, '');
     const arr = value.split('.');
     if (arr[1]) {

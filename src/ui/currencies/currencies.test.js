@@ -11,7 +11,8 @@ describe('<CurrenciesComponent />', () => {
             {
                 isActive: true,
                 id: 'USD',
-                description: 'description'
+                description: 'description',
+                key: 1,
             }
         ];
         const currencies = data.map(item => {

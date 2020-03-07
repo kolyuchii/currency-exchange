@@ -104,13 +104,13 @@ class ExchangeContainer extends Component {
     }
     onValueFromChanged(event) {
         const {
-            currencyFrom,
+            currencyTo,
             exchangeRates
         } = this.props;
         const value = parseValue(event.currentTarget.value);
         this.setState({
             valueFrom: value,
-            valueTo: getValueTo(Number(value), currencyFrom, exchangeRates),
+            valueTo: getValueTo(Number(value), currencyTo, exchangeRates),
         });
     }
     onValueToChanged(event) {

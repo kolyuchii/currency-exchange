@@ -36,7 +36,6 @@ const ExchangeComponent = props => {
         'exchange__button': true,
         'button': true,
     });
-
     return (
         <form className="exchange" onSubmit={onSubmit}>
             <div className="exchange__slot exchange__slot-from">

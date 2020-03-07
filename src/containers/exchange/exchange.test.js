@@ -54,7 +54,6 @@ describe('Exchange Component', () => {
                 <ExchangeContainer
                     currencyFrom="GBP"
                     currencyTo="EUR"
-                    exchangeRates={[1]}
                     pockets={POCKETS}
                 />
             </Provider>

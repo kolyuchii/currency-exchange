@@ -1,6 +1,4 @@
 import React from 'react';
-// eslint-disable-next-line no-unused-vars
-import setupTests from "../../setupTests";
 import store from 'store';
 import {Provider} from "react-redux";
 import ExchangeContainer from './index';

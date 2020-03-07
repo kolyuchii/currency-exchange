@@ -1,7 +1,5 @@
 import React from 'react';
-// eslint-disable-next-line no-unused-vars
-import setupTests from "../../setupTests";
-import { shallow, mount } from "enzyme";
+import { mount } from "enzyme";
 import CurrenciesComponent from './index';
 import CurrencyComponent from 'ui/components/Currency';
 

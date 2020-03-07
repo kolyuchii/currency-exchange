@@ -1,6 +1,4 @@
 import React from 'react';
-// eslint-disable-next-line no-unused-vars
-import setupTests from "../../setupTests";
 import ExchangeComponent from './index';
 import { mount } from 'enzyme';
 

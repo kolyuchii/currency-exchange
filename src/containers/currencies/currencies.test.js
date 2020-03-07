@@ -1,6 +1,4 @@
 import React from 'react';
-// eslint-disable-next-line no-unused-vars
-import setupTests from "../../setupTests";
 import { CurrenciesContainer } from './index';
 import { mount } from "enzyme";
 import store from 'store';

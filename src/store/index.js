@@ -1,4 +1,4 @@
-import {combineReducers, createStore, applyMiddleware} from 'redux';
+import { combineReducers, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import exchange from './exchange';
 import currency from './currency';

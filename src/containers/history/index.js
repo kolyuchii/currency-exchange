@@ -1,17 +1,13 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import HistoryComponent from 'ui/history';
-import {bindActionCreators} from 'redux';
-import {
-    fetchHistory
-} from 'store/history';
-import {connect} from "react-redux";
-import {
-    PERIODS_MAP,
-} from 'config';
-import AppComponent from "ui/app";
-import createChart, {getChartOptions} from './create-chart';
+import { bindActionCreators } from 'redux';
+import { fetchHistory } from 'store/history';
+import { connect } from 'react-redux';
+import { PERIODS_MAP } from 'config';
+import AppComponent from 'ui/app';
+import createChart, { getChartOptions } from './create-chart';
 
 class HistoryContainer extends Component {
     constructor(props) {
@@ -42,13 +38,11 @@ class HistoryContainer extends Component {
             <HistoryComponent
                 chartRef={this.elChart}
                 periods={Object.entries(PERIODS_MAP).map(period => {
-                    const [
-                        id
-                    ] = period;
+                    const [id] = period;
                     return {
                         id,
-                        isActive: id === this.currentPeriod
-                    }
+                        isActive: id === this.currentPeriod,
+                    };
                 })}
                 onClick={this.changePeriod.bind(this)}
             />
@@ -75,12 +69,20 @@ class HistoryContainer extends Component {
         const period = event.currentTarget.id;
         if (period && this.currentPeriod !== period) {
             this.currentPeriod = period;
-            this.props.actions.fetchHistory(this.state.from, this.state.to, period);
+            this.props.actions.fetchHistory(
+                this.state.from,
+                this.state.to,
+                period
+            );
         }
     }
 
     componentDidMount() {
-        this.props.actions.fetchHistory(this.state.from, this.state.to, this.currentPeriod);
+        this.props.actions.fetchHistory(
+            this.state.from,
+            this.state.to,
+            this.currentPeriod
+        );
     }
 
     onClose() {
@@ -98,18 +100,18 @@ HistoryContainer.propTypes = {
 function mapStateToProps(state) {
     return {
         historyRates: state.history.historyRates,
-    }
+    };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators({
-            fetchHistory,
-        }, dispatch)
+        actions: bindActionCreators(
+            {
+                fetchHistory,
+            },
+            dispatch
+        ),
     };
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(HistoryContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(HistoryContainer);

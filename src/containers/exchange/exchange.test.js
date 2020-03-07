@@ -1,6 +1,6 @@
 import React from 'react';
 import store from 'store';
-import {Provider} from "react-redux";
+import { Provider } from 'react-redux';
 import ExchangeContainer from './index';
 import {
     parseValue,
@@ -10,26 +10,24 @@ import {
     getCurrencySign,
 } from './utils';
 import { mount } from 'enzyme';
-import {
-    POCKETS,
-} from 'config';
-import {SET_RATES} from "store/exchange";
+import { POCKETS } from 'config';
+import { SET_RATES } from 'store/exchange';
 
 describe('Utils', () => {
     it('getCurrencySign', () => {
         const sign = 'GBP';
         const value = 10;
-        expect(getCurrencySign(sign, value)).toBe("£10");
+        expect(getCurrencySign(sign, value)).toBe('£10');
     });
     it('getValueFrom', () => {
         const sign = 'GBP';
         const value = 10;
-        expect(getValueFrom(10, 'GBP', {'GBP': 1})).toBe('10.00');
+        expect(getValueFrom(10, 'GBP', { GBP: 1 })).toBe('10.00');
     });
     it('getValueTo', () => {
         const sign = 'GBP';
         const value = 10;
-        expect(getValueTo(10, 'GBP', {'GBP': 1})).toBe('10.00');
+        expect(getValueTo(10, 'GBP', { GBP: 1 })).toBe('10.00');
     });
     it('getBalance', () => {
         const sign = 'GBP';
@@ -59,7 +57,7 @@ describe('Exchange Component', () => {
         store.dispatch({
             type: SET_RATES,
             exchangeRates: {
-                'EUR': rate
+                EUR: rate,
             },
         });
     });
@@ -71,15 +69,32 @@ describe('Exchange Component', () => {
     });
     it('Exchange button', () => {
         expect(wrapper.find('.exchange__button').length).toBe(1);
-        expect(wrapper.find('.exchange__button').render().attr('disabled')).toBe('disabled');
+        expect(
+            wrapper
+                .find('.exchange__button')
+                .render()
+                .attr('disabled')
+        ).toBe('disabled');
     });
     it('Render currency rate bubble', () => {
         expect(wrapper.find('.exchange__actions_currency-rate').length).toBe(1);
-        expect(wrapper.find('.exchange__actions_currency-rate').text()).toBe(`£1 = €${rate}`);
+        expect(wrapper.find('.exchange__actions_currency-rate').text()).toBe(
+            `£1 = €${rate}`
+        );
     });
     it('Render currency rate bubble', () => {
         expect(wrapper.find('.exchange__slot_currency').length).toBe(2);
-        expect(wrapper.find('.exchange__slot_currency').at(0).text()).toBe('GBP');
-        expect(wrapper.find('.exchange__slot_currency').at(1).text()).toBe('EUR');
+        expect(
+            wrapper
+                .find('.exchange__slot_currency')
+                .at(0)
+                .text()
+        ).toBe('GBP');
+        expect(
+            wrapper
+                .find('.exchange__slot_currency')
+                .at(1)
+                .text()
+        ).toBe('EUR');
     });
 });

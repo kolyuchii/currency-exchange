@@ -1,8 +1,5 @@
-import {
-    DEFAULT_SYMBOLS,
-    GET_CURRENCIES_API_URL,
-} from 'config';
-import {SET_NETWORK_ERROR} from "../exchange";
+import { DEFAULT_SYMBOLS, GET_CURRENCIES_API_URL } from 'config';
+import { SET_NETWORK_ERROR } from '../exchange';
 
 const initialState = {
     currencyFrom: 'GBP',
@@ -27,27 +24,31 @@ const initialState = {
  * @param {string} symbols Limit results to specific currencies (comma-separated list of 3-letter codes)
  */
 export function fetchCurrencies() {
-    return function (dispatch) {
+    return function(dispatch) {
         return fetch(GET_CURRENCIES_API_URL)
             .then(response => {
                 return response.json();
             })
             .then(data => {
                 const dataArr = Object.entries(data);
-                dispatch(setCurrencies(dataArr.filter(currency => {
-                    const [
-                        id,
-                    ] = currency;
-                    return DEFAULT_SYMBOLS.indexOf(id) > -1;
-                }).concat(dataArr)));
+                dispatch(
+                    setCurrencies(
+                        dataArr
+                            .filter(currency => {
+                                const [id] = currency;
+                                return DEFAULT_SYMBOLS.indexOf(id) > -1;
+                            })
+                            .concat(dataArr)
+                    )
+                );
             })
             .catch(response => {
                 dispatch(setNetworkError(response.message));
             });
-    }
+    };
 }
 export function setCurrency(type, value) {
-    return function (dispatch) {
+    return function(dispatch) {
         switch (type) {
             case 'from':
                 dispatch(setCurrencyFrom(value));
@@ -56,49 +57,49 @@ export function setCurrency(type, value) {
                 dispatch(setCurrencyTo(value));
                 break;
         }
-    }
+    };
 }
 export const SET_CURRENCIES = Symbol('SET_CURRENCIES');
 export function setCurrencies(currencies) {
     return {
         type: SET_CURRENCIES,
-        currencies
-    }
+        currencies,
+    };
 }
 export const SET_CURRENCY_FROM = Symbol('SET_CURRENCY_FROM');
 export function setCurrencyFrom(currencyFrom) {
     return {
         type: SET_CURRENCY_FROM,
-        currencyFrom
-    }
+        currencyFrom,
+    };
 }
 export const SET_CURRENCY_TO = Symbol('SET_CURRENCY_TO');
 export function setCurrencyTo(currencyTo) {
     return {
         type: SET_CURRENCY_TO,
-        currencyTo
-    }
+        currencyTo,
+    };
 }
 export function setNetworkError(networkErrorMessage) {
     return {
         type: SET_NETWORK_ERROR,
-        networkErrorMessage
-    }
+        networkErrorMessage,
+    };
 }
 
 export default function(state = initialState, action) {
     switch (action.type) {
         case SET_CURRENCY_FROM:
             return Object.assign({}, state, {
-                currencyFrom: action.currencyFrom
+                currencyFrom: action.currencyFrom,
             });
         case SET_CURRENCY_TO:
             return Object.assign({}, state, {
-                currencyTo: action.currencyTo
+                currencyTo: action.currencyTo,
             });
         case SET_CURRENCIES:
             return Object.assign({}, state, {
-                currencies: action.currencies
+                currencies: action.currencies,
             });
         default:
             return state;

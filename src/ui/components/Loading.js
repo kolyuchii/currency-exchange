@@ -1,19 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const LoadingComponent = (props) => {
+const LoadingComponent = props => {
     return (
         <div className="loading">
             <h3>
                 {props.networkErrorMessage ? (
                     <div className="error">
-                        <p className="error__text">{props.networkErrorMessage}</p>
-                        <a href="/" onClick={reload}>Reload the page and try again</a>
+                        <p className="error__text">
+                            {props.networkErrorMessage}
+                        </p>
+                        <a href="/" onClick={reload}>
+                            Reload the page and try again
+                        </a>
                     </div>
-                ) : 'Loading...'}
+                ) : (
+                    'Loading...'
+                )}
             </h3>
         </div>
-    )
+    );
 };
 
 function reload(event) {

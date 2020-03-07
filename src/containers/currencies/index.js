@@ -1,18 +1,13 @@
-import React, {Component} from 'react';
-import {bindActionCreators} from "redux";
-import {connect} from "react-redux";
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import AppComponent from "ui/app";
-import {
-    fetchCurrencies,
-    setCurrency,
-} from 'store/currency';
+import AppComponent from 'ui/app';
+import { fetchCurrencies, setCurrency } from 'store/currency';
 import CurrenciesComponent from 'ui/currencies';
-import CurrencyComponent from 'ui/components/Currency'
-import {
-    DEFAULT_SYMBOLS,
-} from 'config';
+import CurrencyComponent from 'ui/components/Currency';
+import { DEFAULT_SYMBOLS } from 'config';
 
 export class CurrenciesContainer extends Component {
     render() {
@@ -22,7 +17,7 @@ export class CurrenciesContainer extends Component {
                 title="Currencies"
                 page={this.getCurrencies()}
             />
-        )
+        );
     }
 
     getCurrencies() {
@@ -30,10 +25,7 @@ export class CurrenciesContainer extends Component {
             return null;
         }
         const currencies = this.props.currencies.map((currency, index) => {
-            const [
-                id,
-                description,
-            ] = currency;
+            const [id, description] = currency;
             return (
                 <CurrencyComponent
                     key={index}
@@ -45,15 +37,14 @@ export class CurrenciesContainer extends Component {
             );
         });
 
-        return (
-            <CurrenciesComponent
-                currencies={currencies}
-            />
-        )
+        return <CurrenciesComponent currencies={currencies} />;
     }
 
     onClick(event) {
-        this.props.actions.setCurrency(this.props.match.params.slot, event.currentTarget.id);
+        this.props.actions.setCurrency(
+            this.props.match.params.slot,
+            event.currentTarget.id
+        );
     }
 
     onClose() {
@@ -61,7 +52,10 @@ export class CurrenciesContainer extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.currencyFrom !== this.props.currencyFrom || prevProps.currencyTo !== this.props.currencyTo) {
+        if (
+            prevProps.currencyFrom !== this.props.currencyFrom ||
+            prevProps.currencyTo !== this.props.currencyTo
+        ) {
             this.props.history.push('/');
         }
     }
@@ -87,19 +81,22 @@ function mapStateToProps(state) {
         currencies: state.currency.currencies,
         currencyFrom: state.currency.currencyFrom,
         currencyTo: state.currency.currencyTo,
-    }
+    };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators({
-            fetchCurrencies,
-            setCurrency,
-        }, dispatch)
+        actions: bindActionCreators(
+            {
+                fetchCurrencies,
+                setCurrency,
+            },
+            dispatch
+        ),
     };
 }
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(CurrenciesContainer)
+)(CurrenciesContainer);

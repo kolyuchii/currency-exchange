@@ -26,21 +26,30 @@ const ExchangeComponent = props => {
     } = props;
 
     const clearBalanceFrom = Number(balanceFrom.replace(/\D/, ''));
-    const isButtonDisabled = currencyFrom === currencyTo || Math.abs(valueFrom) > clearBalanceFrom || Math.abs(valueFrom) <= 0;
+    const isButtonDisabled =
+        currencyFrom === currencyTo ||
+        Math.abs(valueFrom) > clearBalanceFrom ||
+        Math.abs(valueFrom) <= 0;
     const balanceClassNames = classnames({
-        'is-red': clearBalanceFrom === 0 || clearBalanceFrom < Math.abs(valueFrom),
-        'exchange__slot_balance': true,
+        'is-red':
+            clearBalanceFrom === 0 || clearBalanceFrom < Math.abs(valueFrom),
+        exchange__slot_balance: true,
     });
     const buttonClassNames = classnames({
-        'disabled': isButtonDisabled,
-        'exchange__button': true,
-        'button': true,
+        disabled: isButtonDisabled,
+        exchange__button: true,
+        button: true,
     });
     return (
         <form className="exchange" onSubmit={onSubmit}>
             <div className="exchange__slot exchange__slot-from">
                 <div className="exchange__slot_wrapper">
-                    <div className="exchange__slot_currency icon__change" onClick={onChangeCurrency.bind(null, 'from')}>{currencyFrom}</div>
+                    <div
+                        className="exchange__slot_currency icon__change"
+                        onClick={onChangeCurrency.bind(null, 'from')}
+                    >
+                        {currencyFrom}
+                    </div>
                     <input
                         className="exchange__slot_value"
                         onChange={onValueFromChanged}
@@ -49,17 +58,31 @@ const ExchangeComponent = props => {
                         placeholder="0"
                     />
                 </div>
-                <div className={balanceClassNames} onClick={setBalanceFrom}>Balance {balanceFrom}</div>
+                <div className={balanceClassNames} onClick={setBalanceFrom}>
+                    Balance {balanceFrom}
+                </div>
             </div>
             <div className="exchange__actions">
-                <div className="exchange__actions_swap icon__swap" onClick={onSwap} />
-                <div className="exchange__actions_currency-rate" onClick={onRateClick}>
-                    <span className="icon icon__currency-rate"/>{rateFrom} = {rateTo}
+                <div
+                    className="exchange__actions_swap icon__swap"
+                    onClick={onSwap}
+                />
+                <div
+                    className="exchange__actions_currency-rate"
+                    onClick={onRateClick}
+                >
+                    <span className="icon icon__currency-rate" />
+                    {rateFrom} = {rateTo}
                 </div>
             </div>
             <div className="exchange__slot exchange__slot-to">
                 <div className="exchange__slot_wrapper">
-                    <div className="exchange__slot_currency icon__change" onClick={onChangeCurrency.bind(null, 'to')}>{currencyTo}</div>
+                    <div
+                        className="exchange__slot_currency icon__change"
+                        onClick={onChangeCurrency.bind(null, 'to')}
+                    >
+                        {currencyTo}
+                    </div>
                     <input
                         className="exchange__slot_value"
                         onChange={onValueToChanged}
@@ -68,13 +91,20 @@ const ExchangeComponent = props => {
                         placeholder="0"
                     />
                 </div>
-                <div className="exchange__slot_balance" onClick={setBalanceTo}>Balance {balanceTo}</div>
+                <div className="exchange__slot_balance" onClick={setBalanceTo}>
+                    Balance {balanceTo}
+                </div>
             </div>
             {exchangeRatesError ? (
                 <div className="exchange__error">{exchangeRatesError}</div>
             ) : null}
             <div className="button__wrapper">
-                <button className={buttonClassNames} disabled={isButtonDisabled}>Exchange</button>
+                <button
+                    className={buttonClassNames}
+                    disabled={isButtonDisabled}
+                >
+                    Exchange
+                </button>
             </div>
         </form>
     );

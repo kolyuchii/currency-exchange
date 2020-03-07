@@ -1,12 +1,12 @@
 import React from 'react';
-import { mount } from "enzyme";
-import AppComponent from "./App";
-import store from "store";
-import {Provider} from "react-redux";
+import { mount } from 'enzyme';
+import AppComponent from './App';
+import store from 'store';
+import { Provider } from 'react-redux';
 
 describe('<AppComponent />', () => {
     const data = {
-        page: (<div>Hello!</div>),
+        page: <div>Hello!</div>,
         onClose: jest.fn(),
         onAction: jest.fn(),
         title: 'Application name',

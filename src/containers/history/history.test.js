@@ -1,11 +1,9 @@
 import React from 'react';
 import store from 'store';
-import {Provider} from "react-redux";
+import { Provider } from 'react-redux';
 import HistoryContainer from './index';
 import { mount } from 'enzyme';
-import {
-    SET_HISTORY_RATES
-} from 'store/history';
+import { SET_HISTORY_RATES } from 'store/history';
 
 describe('<HistoryContainer/>', () => {
     let wrapper = null;
@@ -15,21 +13,19 @@ describe('<HistoryContainer/>', () => {
                 params: {
                     to: 'EUR',
                     from: 'GPB',
-                }
+                },
             },
             historyRates: {},
         };
         wrapper = mount(
             <Provider store={store}>
-                <HistoryContainer
-                    {...data}
-                />
+                <HistoryContainer {...data} />
             </Provider>
         );
         store.dispatch({
             type: SET_HISTORY_RATES,
             historyRates: {
-                'EUR': 0.2323
+                EUR: 0.2323,
             },
         });
     });

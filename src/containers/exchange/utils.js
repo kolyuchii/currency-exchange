@@ -1,4 +1,4 @@
-import {CURRENCY_ID_TO_SIGN_MAP} from "config";
+import { CURRENCY_ID_TO_SIGN_MAP } from 'config';
 export function getCurrencySign(currencyName, value) {
     const sign = CURRENCY_ID_TO_SIGN_MAP[currencyName] || '';
     return `${sign}${value}`;

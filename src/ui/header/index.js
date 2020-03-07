@@ -5,9 +5,15 @@ import './header.scss';
 const HeaderComponent = props => {
     return (
         <header className="header">
-            <div className="header__close icon__close" onClick={props.onClose} />
+            <div
+                className="header__close icon__close"
+                onClick={props.onClose}
+            />
             <h4 className="header__title">{props.title}</h4>
-            <div className="header__action icon__auto" onClick={props.onAction} />
+            <div
+                className="header__action icon__auto"
+                onClick={props.onAction}
+            />
         </header>
     );
 };

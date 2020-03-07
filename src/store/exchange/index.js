@@ -1,24 +1,25 @@
-import {
-    DEFAULT_SYMBOLS,
-    GET_RATES_API_URL,
-    POCKETS,
-} from 'config';
+import { DEFAULT_SYMBOLS, GET_RATES_API_URL, POCKETS } from 'config';
 
 const initialState = {
     exchangeRates: null,
-    pockets: POCKETS
+    pockets: POCKETS,
 };
 const controller = new AbortController();
 const signal = controller.signal;
 
 export function fetchExchangeRates(base, symbols = DEFAULT_SYMBOLS.join(',')) {
-    return function (dispatch) {
+    return function(dispatch) {
         if (base === symbols) {
-            dispatch(setExchangeRates({
-                [symbols]: 1
-            }));
+            dispatch(
+                setExchangeRates({
+                    [symbols]: 1,
+                })
+            );
         } else {
-           return fetch(`${GET_RATES_API_URL}&base=${base}&symbols=${symbols}`, {signal})
+            return fetch(
+                `${GET_RATES_API_URL}&base=${base}&symbols=${symbols}`,
+                { signal }
+            )
                 .then(response => {
                     return response.json();
                 })
@@ -33,40 +34,40 @@ export function fetchExchangeRates(base, symbols = DEFAULT_SYMBOLS.join(',')) {
                     dispatch(setNetworkError(response.message));
                 });
         }
-    }
+    };
 }
 export function updatePockets(pockets) {
     return function(dispatch) {
         dispatch(setPockets(pockets));
-    }
+    };
 }
 export const SET_NETWORK_ERROR = Symbol('SET_NETWORK_ERROR');
 export function setNetworkError(networkErrorMessage) {
     return {
         type: SET_NETWORK_ERROR,
-        networkErrorMessage
-    }
+        networkErrorMessage,
+    };
 }
 export const SET_EXCHANGE_RATES_ERROR = Symbol('SET_EXCHANGE_RATES_ERROR');
 export function setExchangeRatesError(exchangeRatesError) {
     return {
         type: SET_EXCHANGE_RATES_ERROR,
-        exchangeRatesError
-    }
+        exchangeRatesError,
+    };
 }
 export const SET_RATES = Symbol('SET_RATES');
 export function setExchangeRates(exchangeRates) {
     return {
         type: SET_RATES,
-        exchangeRates
-    }
+        exchangeRates,
+    };
 }
 export const SET_POCKETS = Symbol('SET_POCKETS');
 export function setPockets(pockets) {
     return {
         type: SET_POCKETS,
-        pockets
-    }
+        pockets,
+    };
 }
 
 export default function(state = initialState, action) {
@@ -78,15 +79,15 @@ export default function(state = initialState, action) {
             });
         case SET_EXCHANGE_RATES_ERROR:
             return Object.assign({}, state, {
-                exchangeRatesError: action.exchangeRatesError
+                exchangeRatesError: action.exchangeRatesError,
             });
         case SET_POCKETS:
             return Object.assign({}, state, {
-                pockets: action.pockets
+                pockets: action.pockets,
             });
         case SET_NETWORK_ERROR:
             return Object.assign({}, state, {
-                networkErrorMessage: action.networkErrorMessage
+                networkErrorMessage: action.networkErrorMessage,
             });
         default:
             return state;

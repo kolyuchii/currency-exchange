@@ -2,15 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './app.scss';
 import LoadingComponent from 'ui/components/Loading';
-import {connect} from "react-redux";
+import { connect } from 'react-redux';
 import HeaderComponent from 'ui/header';
 
 const AppComponent = props => {
     function getLoading() {
         return (
-            <LoadingComponent
-                networkErrorMessage={props.networkErrorMessage}
-            />
+            <LoadingComponent networkErrorMessage={props.networkErrorMessage} />
         );
     }
     return (
@@ -20,9 +18,7 @@ const AppComponent = props => {
                 onClose={props.onClose}
                 onAction={props.onAction}
             />
-            <section className="content">
-                {props.page || getLoading()}
-            </section>
+            <section className="content">{props.page || getLoading()}</section>
         </div>
     );
 };
@@ -38,9 +34,7 @@ AppComponent.propTypes = {
 function mapStateToProps(state) {
     return {
         networkErrorMessage: state.exchange.networkErrorMessage,
-    }
+    };
 }
 
-export default connect(
-    mapStateToProps,
-)(AppComponent)
+export default connect(mapStateToProps)(AppComponent);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from "enzyme";
+import { mount } from 'enzyme';
 import HistoryComponent from './index';
 
 describe('<HistoryComponent />', () => {
@@ -17,11 +17,7 @@ describe('<HistoryComponent />', () => {
     ];
 
     it('render history steps', () => {
-        const wrapper = mount(
-            <HistoryComponent
-                periods={periods}
-            />
-        );
+        const wrapper = mount(<HistoryComponent periods={periods} />);
         const stepEls = wrapper.find('.history__steps-item');
         expect(stepEls.length).toBe(periods.length);
     });
@@ -29,15 +25,17 @@ describe('<HistoryComponent />', () => {
     it('click at the history step', () => {
         const onClick = jest.fn();
         const wrapper = mount(
-            <HistoryComponent
-                periods={periods}
-                onClick={onClick}
-            />
+            <HistoryComponent periods={periods} onClick={onClick} />
         );
         const stepEls = wrapper.find('.history__steps-item');
         stepEls.at(0).simulate('click');
         stepEls.at(1).simulate('click');
         expect(onClick).toHaveBeenCalled();
-        expect(stepEls.at(0).render().hasClass('is-active')).toBe(true);
+        expect(
+            stepEls
+                .at(0)
+                .render()
+                .hasClass('is-active')
+        ).toBe(true);
     });
 });

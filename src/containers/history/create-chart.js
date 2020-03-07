@@ -1,21 +1,21 @@
-import Chart from "chart.js";
+import Chart from 'chart.js';
 
 export default (element, historyRates, range) => {
     const context = element.current.getContext('2d');
     if (!context) {
         return null;
     }
-    return new Chart(element.current.getContext('2d'), getChartOptions(historyRates, range));
-}
+    return new Chart(
+        element.current.getContext('2d'),
+        getChartOptions(historyRates, range)
+    );
+};
 
 export function getChartOptions(historyRates, range) {
     const labels = [];
     const data = [];
     Object.entries(historyRates).forEach(item => {
-        const [
-            label,
-            value,
-        ] = item;
+        const [label, value] = item;
         labels.push(label.split('-')[2]);
         data.push(value[range.to]);
     });
@@ -23,31 +23,37 @@ export function getChartOptions(historyRates, range) {
         type: 'line',
         data: {
             labels: labels,
-            datasets: [{
-                label: `${range.from} -> ${range.to}`,
-                backgroundColor: '#C7DFFA',
-                borderColor: '#267BCC',
-                data: data
-            }],
+            datasets: [
+                {
+                    label: `${range.from} -> ${range.to}`,
+                    backgroundColor: '#C7DFFA',
+                    borderColor: '#267BCC',
+                    data: data,
+                },
+            ],
         },
         options: {
             scales: {
-                xAxes: [{
-                    ticks: {
-                        display: false,
+                xAxes: [
+                    {
+                        ticks: {
+                            display: false,
+                        },
                     },
-                }],
-                yAxes: [{
-                    ticks: {
-                        display: false,
-                        beginAtZero: false,
-                        suggestedMin: Math.min.apply(Math, data),
-                    }
-                }]
+                ],
+                yAxes: [
+                    {
+                        ticks: {
+                            display: false,
+                            beginAtZero: false,
+                            suggestedMin: Math.min.apply(Math, data),
+                        },
+                    },
+                ],
             },
             legend: {
                 display: true,
-            }
-        }
-    }
+            },
+        },
+    };
 }

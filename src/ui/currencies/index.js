@@ -3,12 +3,8 @@ import './currencies.scss';
 import PropTypes from 'prop-types';
 
 const CurrenciesComponent = props => {
-    const {
-        currencies,
-    } = props;
-    return (
-        <div className="currencies">{currencies}</div>
-    );
+    const { currencies } = props;
+    return <div className="currencies">{currencies}</div>;
 };
 
 CurrenciesComponent.propTypes = {

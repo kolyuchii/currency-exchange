@@ -1,23 +1,23 @@
 .history {
-  background-color: #fff;
-  padding-bottom: 20px;
-  box-shadow: 0 5px 5px #ddd;
+    background-color: #fff;
+    padding-bottom: 20px;
+    box-shadow: 0 5px 5px #ddd;
 
-  &__steps {
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-    padding: 0;
-    margin: 0;
-    &-item {
-      flex: 1 0 0;
-      text-align: center;
-      border-top: 3px solid #fff;
-      padding: 5px 0;
-      cursor: pointer;
-      &.is-active {
-        border-color: #2667B6;
-      }
+    &__steps {
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        padding: 0;
+        margin: 0;
+        &-item {
+            flex: 1 0 0;
+            text-align: center;
+            border-top: 3px solid #fff;
+            padding: 5px 0;
+            cursor: pointer;
+            &.is-active {
+                border-color: #2667b6;
+            }
+        }
     }
-  }
 }

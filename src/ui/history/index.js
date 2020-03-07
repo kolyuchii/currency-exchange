@@ -14,18 +14,28 @@ const HistoryComponent = props => {
                 'is-active': period.isActive,
             });
             return (
-                <li key={index} className={periodClassNames} id={period.id} onClick={props.onClick}>{period.id}</li>
+                <li
+                    key={index}
+                    className={periodClassNames}
+                    id={period.id}
+                    onClick={props.onClick}
+                >
+                    {period.id}
+                </li>
             );
         });
     }
     return (
         <div className="history">
-            <canvas ref={props.chartRef} id="myChart" width="400" height="250"></canvas>
-            <ul className="history__steps">
-                {getPeriods()}
-            </ul>
+            <canvas
+                ref={props.chartRef}
+                id="myChart"
+                width="400"
+                height="250"
+            ></canvas>
+            <ul className="history__steps">{getPeriods()}</ul>
         </div>
-    )
+    );
 };
 
 HistoryComponent.propTypes = {

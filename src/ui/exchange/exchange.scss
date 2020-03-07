@@ -1,98 +1,98 @@
 @import 'src/styles/variables';
 
 .exchange {
-  &__slot {
-    background-color: #fff;
-    padding: 20px;
-    &_currency {
-      font-size: 35px;
-      padding-right: 20px;
-      margin-right: 10px;
-      background-position: right;
-      background-size: 15px;
-      cursor: pointer;
+    &__slot {
+        background-color: #fff;
+        padding: 20px;
+        &_currency {
+            font-size: 35px;
+            padding-right: 20px;
+            margin-right: 10px;
+            background-position: right;
+            background-size: 15px;
+            cursor: pointer;
+        }
+        &_balance {
+            font-size: 0.8em;
+            color: #5b5b5b;
+            display: block;
+            margin: 0 auto;
+            cursor: pointer;
+            max-width: $max-width;
+            &.is-red {
+                color: #dd0010;
+            }
+        }
     }
-    &_balance {
-      font-size: .8em;
-      color: #5b5b5b;
-      display: block;
-      margin: 0 auto;
-      cursor: pointer;
-      max-width: $max-width;
-      &.is-red {
-        color: #dd0010;
-      }
+    &__slot-from {
+        padding-bottom: 30px;
+        margin-bottom: -15px;
     }
-  }
-  &__slot-from {
-    padding-bottom: 30px;
-    margin-bottom: -15px;
-  }
-  &__slot-to {
-    padding-top: 30px;
-    margin-top: -15px;
-    background-color: #F3F4F6;
-    .exchange__slot_value {
-      background-color: #F3F4F6;
+    &__slot-to {
+        padding-top: 30px;
+        margin-top: -15px;
+        background-color: #f3f4f6;
+        .exchange__slot_value {
+            background-color: #f3f4f6;
+        }
     }
-  }
-  &__slot_wrapper {
-    display: flex;
-    justify-content: space-between;
-    margin: 0 auto 5px;
-    max-width: $max-width;
-  }
+    &__slot_wrapper {
+        display: flex;
+        justify-content: space-between;
+        margin: 0 auto 5px;
+        max-width: $max-width;
+    }
     &__slot_value {
-      text-align: right;
-      font-size: 35px;
-      outline-style: none;
-      min-width: 70%;
-      border: 1px solid #aaa;
+        text-align: right;
+        font-size: 35px;
+        outline-style: none;
+        min-width: 70%;
+        border: 1px solid #aaa;
     }
-  &__actions {
-    text-align: center;
-    position: relative;
-    height: 30px;
-    line-height: 30px;
-    color: #2667B6;
-    font-size: .8em;
-    max-width: $max-width;
-    margin: 0 auto;
-    &_swap {
-      position: absolute;
-      left: 20px;
-      width: 30px;
-      height: 100%;
-      background-color: #fff;
-      cursor: pointer;
-      border-radius: 15px;
-      border: 1px solid #F3F4F6;
-    }
-    .icon__swap {
-      background-size: 15px 15px;
-      background-position: 8px 7px;
-    }
-    &_currency-rate {
-      background-color: #fff;
-      border: 1px solid #F3F4F6;
-      border-radius: 15px;
-      display: inline-block;
-      padding: 0 10px 0 30px;
-      position: relative;
-      cursor: pointer;
+    &__actions {
+        text-align: center;
+        position: relative;
+        height: 30px;
+        line-height: 30px;
+        color: #2667b6;
+        font-size: 0.8em;
+        max-width: $max-width;
+        margin: 0 auto;
+        &_swap {
+            position: absolute;
+            left: 20px;
+            width: 30px;
+            height: 100%;
+            background-color: #fff;
+            cursor: pointer;
+            border-radius: 15px;
+            border: 1px solid #f3f4f6;
+        }
+        .icon__swap {
+            background-size: 15px 15px;
+            background-position: 8px 7px;
+        }
+        &_currency-rate {
+            background-color: #fff;
+            border: 1px solid #f3f4f6;
+            border-radius: 15px;
+            display: inline-block;
+            padding: 0 10px 0 30px;
+            position: relative;
+            cursor: pointer;
 
-      .icon__currency-rate {
-        width: 16px;
-        height: 16px;
-        position: absolute;
-        left: 8px;
-        top: 6px;
-      }
+            .icon__currency-rate {
+                width: 16px;
+                height: 16px;
+                position: absolute;
+                left: 8px;
+                top: 6px;
+            }
+        }
     }
-  }
-  &__error {
-    color: #dd0010;
-    font-size: .8em;
-    padding: 20px;
-  }
+    &__error {
+        color: #dd0010;
+        font-size: 0.8em;
+        padding: 20px;
+    }
 }

@@ -11,7 +11,7 @@ import {
     PERIODS_MAP,
 } from 'config';
 import AppComponent from "ui/app";
-import createChart from './create-chart';
+import createChart, {getChartOptions} from './create-chart';
 
 class HistoryContainer extends Component {
     constructor(props) {
@@ -23,6 +23,7 @@ class HistoryContainer extends Component {
         };
         this.currentPeriod = '1w';
         this.elChart = React.createRef();
+        this.chart = null;
     }
     render() {
         return (
@@ -55,10 +56,19 @@ class HistoryContainer extends Component {
     }
 
     componentDidUpdate() {
-        createChart(this.elChart, this.props.historyRates, {
-            from: this.state.from,
-            to: this.state.to,
-        });
+        if (this.chart) {
+            const params = getChartOptions(this.props.historyRates, {
+                from: this.state.from,
+                to: this.state.to,
+            });
+            this.chart.data = params.data;
+            this.chart.update();
+        } else {
+            this.chart = createChart(this.elChart, this.props.historyRates, {
+                from: this.state.from,
+                to: this.state.to,
+            });
+        }
     }
 
     changePeriod(event) {

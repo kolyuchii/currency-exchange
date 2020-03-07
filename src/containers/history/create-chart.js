@@ -5,6 +5,10 @@ export default (element, historyRates, range) => {
     if (!context) {
         return null;
     }
+    return new Chart(element.current.getContext('2d'), getChartOptions(historyRates, range));
+}
+
+export function getChartOptions(historyRates, range) {
     const labels = [];
     const data = [];
     Object.entries(historyRates).forEach(item => {
@@ -15,7 +19,7 @@ export default (element, historyRates, range) => {
         labels.push(label.split('-')[2]);
         data.push(value[range.to]);
     });
-    new Chart(element.current.getContext('2d'), {
+    return {
         type: 'line',
         data: {
             labels: labels,
@@ -24,7 +28,7 @@ export default (element, historyRates, range) => {
                 backgroundColor: '#C7DFFA',
                 borderColor: '#267BCC',
                 data: data
-            }]
+            }],
         },
         options: {
             scales: {
@@ -45,5 +49,5 @@ export default (element, historyRates, range) => {
                 display: true,
             }
         }
-    });
+    }
 }

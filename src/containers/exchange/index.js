@@ -15,8 +15,13 @@ import {
 import {
     FETCH_RATES_TIMEOUT,
 } from 'config';
-import getCurrencySign from './get-currency-sign';
-import parseValue from './parse-value';
+import {
+    parseValue,
+    getValueFrom,
+    getValueTo,
+    getBalance,
+    getCurrencySign,
+} from './utils';
 
 class ExchangeContainer extends Component {
     constructor(props) {
@@ -44,6 +49,7 @@ class ExchangeContainer extends Component {
             currencyTo,
             exchangeRates,
             exchangeRatesError,
+            pockets,
         } = this.props;
 
         const exchangeRate = exchangeRates[currencyTo] || 0;
@@ -51,11 +57,11 @@ class ExchangeContainer extends Component {
             <ExchangeComponent
                 rateFrom={getCurrencySign(currencyFrom, 1)}
                 currencyFrom={currencyFrom}
-                balanceFrom={getCurrencySign(currencyFrom, this.getBalance(currencyFrom))}
+                balanceFrom={getCurrencySign(currencyFrom, getBalance(currencyFrom, pockets))}
                 rateTo={getCurrencySign(
                     currencyTo,
                     exchangeRate.toFixed(4))}
-                balanceTo={getCurrencySign(currencyTo, this.getBalance(currencyTo))}
+                balanceTo={getCurrencySign(currencyTo, getBalance(currencyTo, pockets))}
                 currencyTo={currencyTo}
                 exchangeRatesError={exchangeRatesError}
                 valueFrom={this.state.valueFrom ? `-${this.state.valueFrom}` : ''}
@@ -72,70 +78,62 @@ class ExchangeContainer extends Component {
             />
         );
     }
-    getBalance(currency) {
-        const pocket = this.props.pockets[currency];
-        if (pocket) {
-            return pocket.balance;
-        }
-        return 0;
-    }
     setBalanceFrom() {
         const {
             currencyFrom,
+            exchangeRates,
+            pockets,
         } = this.props;
-        const balance = this.getBalance(currencyFrom);
+        const balance = getBalance(currencyFrom, pockets);
         this.setState({
             valueFrom: balance,
-            valueTo: this.getValueTo(balance),
+            valueTo: getValueTo(balance, currencyFrom, exchangeRates),
         });
     }
     setBalanceTo() {
         const {
             currencyTo,
+            exchangeRates,
+            pockets,
         } = this.props;
-        const balance = this.getBalance(currencyTo);
+        const balance = getBalance(currencyTo, pockets);
         this.setState({
-            valueFrom: this.getValueFrom(balance),
+            valueFrom: getValueFrom(balance, currencyTo, exchangeRates),
             valueTo: balance,
         });
     }
     onValueFromChanged(event) {
+        const {
+            currencyFrom,
+            exchangeRates
+        } = this.props;
         const value = parseValue(event.currentTarget.value);
         this.setState({
             valueFrom: value,
-            valueTo: this.getValueTo(Number(value)),
+            valueTo: getValueTo(Number(value), currencyFrom, exchangeRates),
         });
     }
     onValueToChanged(event) {
+        const {
+            currencyTo,
+            exchangeRates
+        } = this.props;
         const value = parseValue(event.currentTarget.value);
         this.setState({
-            valueFrom: this.getValueFrom(Number(value)),
+            valueFrom: getValueTo(Number(value), currencyTo, exchangeRates),
             valueTo: value,
         });
-    }
-    getValueFrom(value) {
-        const {
-            currencyTo,
-            exchangeRates,
-        } = this.props;
-        return value ? (value / exchangeRates[currencyTo]).toFixed(2) : '';
-    }
-    getValueTo(value) {
-        const {
-            currencyTo,
-            exchangeRates,
-        } = this.props;
-        return value ? (value * exchangeRates[currencyTo]).toFixed(2) : '';
     }
     onSubmit(event) {
         event.preventDefault();
         const {
             currencyFrom,
             currencyTo,
+            pockets,
         } = this.props;
 
-        const balanceFrom = Number(this.getBalance(currencyFrom));
-        const balanceTo = Number(this.getBalance(currencyTo));
+        const balanceFrom = getBalance(currencyFrom, pockets);
+        const balanceTo = getBalance(currencyTo, pockets);
         if (this.state.valueFrom <= balanceFrom && currencyFrom !== currencyTo) {
             this.props.actions.updatePockets({
                 [currencyFrom]: {

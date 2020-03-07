@@ -4,24 +4,41 @@ import setupTests from "../../setupTests";
 import store from 'store';
 import {Provider} from "react-redux";
 import ExchangeContainer from './index';
-import getCurrencySign from './get-currency-sign';
-import parseValue from './parse-value';
+import {
+    parseValue,
+    getValueFrom,
+    getValueTo,
+    getBalance,
+    getCurrencySign,
+} from './utils';
 import { mount } from 'enzyme';
 import {
     POCKETS,
 } from 'config';
-import {SET_HISTORY_RATES} from "../../store/history";
-import {SET_RATES} from "../../store/exchange";
+import {SET_RATES} from "store/exchange";
 
-describe('getCurrencySign', () => {
-    it('get currency value', () => {
+describe('Utils', () => {
+    it('getCurrencySign', () => {
         const sign = 'GBP';
         const value = 10;
         expect(getCurrencySign(sign, value)).toBe("£10");
     });
-});
-describe('parseValue', () => {
-    it('parse value', () => {
+    it('getValueFrom', () => {
+        const sign = 'GBP';
+        const value = 10;
+        expect(getValueFrom(10, 'GBP', {'GBP': 1})).toBe('10.00');
+    });
+    it('getValueTo', () => {
+        const sign = 'GBP';
+        const value = 10;
+        expect(getValueTo(10, 'GBP', {'GBP': 1})).toBe('10.00');
+    });
+    it('getBalance', () => {
+        const sign = 'GBP';
+        const value = 10;
+        expect(getBalance('GBP', POCKETS)).toBe(POCKETS['GBP'].balance);
+    });
+    it('parseValue', () => {
         expect(parseValue(10)).toBe('10');
         expect(parseValue(10.25463)).toBe('10.25');
         expect(parseValue('dfd10')).toBe('10');

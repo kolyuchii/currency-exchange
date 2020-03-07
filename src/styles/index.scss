@@ -13,8 +13,8 @@ body {
   margin: 50px 0 30px;
 }
   .button {
-    border: 1px solid #d47296;
-    background-color: #d47296;
+    border: 1px solid #E9168D;
+    background-color: #E9168D;
     padding: 10px 0;
     font-size: 1em;
     color: #fff;
@@ -22,9 +22,10 @@ body {
     width: 80%;
     max-width: 500px;
     box-shadow: 0 5px 5px #eee;
+    cursor: pointer;
     &.disabled {
-      background-color: #F9C3E5;
-      border: 1px solid #F9C3E5;
+      background-color: #f0aede;
+      border: 1px solid #f0aede;
       box-shadow: none;
     }
   }

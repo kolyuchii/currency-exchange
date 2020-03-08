@@ -12,6 +12,7 @@ const ExchangeComponent = props => {
         balanceTo,
         currencyTo,
         exchangeRatesError,
+        networkErrorMessage,
         valueFrom,
         valueTo,
 
@@ -40,6 +41,10 @@ const ExchangeComponent = props => {
         exchange__button: true,
         button: true,
     });
+    const rateClassNames = classnames({
+        'exchange__actions_currency-rate': true,
+        'is-network-error': !!networkErrorMessage,
+    });
     return (
         <form className="exchange" onSubmit={onSubmit}>
             <div className="exchange__slot exchange__slot-from">
@@ -67,10 +72,7 @@ const ExchangeComponent = props => {
                     className="exchange__actions_swap icon__swap"
                     onClick={onSwap}
                 />
-                <div
-                    className="exchange__actions_currency-rate"
-                    onClick={onRateClick}
-                >
+                <div className={rateClassNames} onClick={onRateClick}>
                     <span className="icon icon__currency-rate" />
                     {rateFrom} = {rateTo}
                 </div>
@@ -118,6 +120,7 @@ ExchangeComponent.propTypes = {
     balanceTo: PropTypes.string,
     currencyTo: PropTypes.string,
     exchangeRatesError: PropTypes.string,
+    networkErrorMessage: PropTypes.string,
     valueFrom: PropTypes.string,
     valueTo: PropTypes.string,
 

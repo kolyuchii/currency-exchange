@@ -22,6 +22,10 @@ describe('Exchange store', () => {
 
         const expectedActions = [
             {
+                networkErrorMessage: null,
+                type: exchange.SET_NETWORK_ERROR,
+            },
+            {
                 type: exchange.SET_RATES,
                 exchangeRates: { EUR: 1.1472494694 },
             },

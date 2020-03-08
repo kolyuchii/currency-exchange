@@ -1,30 +1,37 @@
 import React from 'react';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
-import ExchangeContainer from 'containers/exchange';
-import CurrenciesContainer from 'containers/currencies';
-import HistoryContainer from 'containers/history';
-import store from 'store';
-import { Provider } from 'react-redux';
+import { connect } from 'react-redux';
+import AppComponent from 'ui/app';
+import HeaderComponent from 'ui/header';
+import PropTypes from 'prop-types';
 
-function App() {
+const AppContainer = props => {
     return (
-        <Provider store={store}>
-            <BrowserRouter>
-                <Switch>
-                    <Route exact path="/" component={ExchangeContainer} />
-                    <Route path="/exchange" component={ExchangeContainer} />
-                    <Route
-                        path="/currencies/:slot"
-                        component={CurrenciesContainer}
-                    />
-                    <Route
-                        path="/history/:from/:to"
-                        component={HistoryContainer}
-                    />
-                </Switch>
-            </BrowserRouter>
-        </Provider>
+        <AppComponent
+            networkErrorMessage={props.networkErrorMessage}
+            page={props.page}
+            header={
+                <HeaderComponent
+                    title={props.title}
+                    onClose={props.onClose}
+                    onAction={props.onAction}
+                />
+            }
+        />
     );
+};
+
+AppContainer.propTypes = {
+    page: PropTypes.element,
+    onClose: PropTypes.func,
+    onAction: PropTypes.func,
+    title: PropTypes.string,
+    networkErrorMessage: PropTypes.string,
+};
+
+function mapStateToProps(state) {
+    return {
+        networkErrorMessage: state.exchange.networkErrorMessage,
+    };
 }
 
-export default App;
+export default connect(mapStateToProps)(AppContainer);

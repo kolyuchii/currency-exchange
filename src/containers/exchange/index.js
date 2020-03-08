@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
-import AppComponent from 'ui/app';
+import AppContainer from 'containers/app';
 import ExchangeComponent from 'ui/exchange';
 import { fetchExchangeRates, updatePockets } from 'store/exchange';
 import { setCurrency } from 'store/currency';
@@ -19,7 +19,7 @@ import {
 class ExchangeContainer extends Component {
     constructor(props) {
         super(props);
-
+        this.fetchExchangeRates = this.fetchExchangeRates.bind(this);
         this.state = {
             valueFrom: '',
             valueTo: '',
@@ -27,7 +27,7 @@ class ExchangeContainer extends Component {
     }
     render() {
         return (
-            <AppComponent page={this.getExchangeContainer()} title="Exchange" />
+            <AppContainer page={this.getExchangeContainer()} title="Exchange" />
         );
     }
     getExchangeContainer() {
@@ -62,6 +62,7 @@ class ExchangeContainer extends Component {
                     this.state.valueFrom ? `-${this.state.valueFrom}` : ''
                 }
                 valueTo={this.state.valueTo ? `+${this.state.valueTo}` : ''}
+                networkErrorMessage={this.props.networkErrorMessage}
                 onSubmit={this.onSubmit.bind(this)}
                 onSwap={this.onSwap.bind(this)}
                 onRateClick={this.onRateClick.bind(this)}
@@ -168,6 +169,10 @@ class ExchangeContainer extends Component {
     }
 
     componentDidMount() {
+        this.fetchExchangeRates();
+        window.addEventListener('online', this.fetchExchangeRates);
+    }
+    fetchExchangeRates() {
         this.props.actions.fetchExchangeRates(
             this.props.currencyFrom,
             this.props.currencyTo
@@ -175,6 +180,7 @@ class ExchangeContainer extends Component {
     }
     componentWillUnmount() {
         this.clear();
+        window.removeEventListener('online', this.fetchExchangeRates);
     }
     clear() {
         if (this.fetchRatesTimer) {
@@ -192,6 +198,7 @@ ExchangeContainer.propTypes = {
     history: PropTypes.object,
     pockets: PropTypes.object,
     exchangeRatesError: PropTypes.string,
+    networkErrorMessage: PropTypes.string,
 };
 
 function mapStateToProps(state) {
@@ -203,6 +210,7 @@ function mapStateToProps(state) {
         balanceFrom: state.exchange.balanceFrom,
         balanceTo: state.exchange.balanceTo,
         pockets: state.exchange.pockets,
+        networkErrorMessage: state.exchange.networkErrorMessage,
     };
 }
 

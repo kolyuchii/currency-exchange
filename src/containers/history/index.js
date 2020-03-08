@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { fetchHistory } from 'store/history';
 import { connect } from 'react-redux';
 import { PERIODS_MAP } from 'config';
-import AppComponent from 'ui/app';
+import AppContainer from 'containers/app';
 import createChart, { getChartOptions } from './create-chart';
 
 class HistoryContainer extends Component {
@@ -23,7 +23,7 @@ class HistoryContainer extends Component {
     }
     render() {
         return (
-            <AppComponent
+            <AppContainer
                 onClose={this.onClose.bind(this)}
                 title="History"
                 page={this.getHistory()}

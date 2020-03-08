@@ -1,26 +1,28 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import AppComponent from './App';
-import store from 'store';
-import { Provider } from 'react-redux';
+import AppComponent from './index';
+import HeaderComponent from 'ui/header';
 
 describe('<AppComponent />', () => {
     const data = {
         page: <div>Hello!</div>,
-        onClose: jest.fn(),
-        onAction: jest.fn(),
-        title: 'Application name',
+        header: {
+            onClose: jest.fn(),
+            onAction: jest.fn(),
+            title: 'Application name',
+        },
     };
     let wrapper;
     beforeEach(() => {
         wrapper = mount(
-            <Provider store={store}>
-                <AppComponent {...data} />
-            </Provider>
+            <AppComponent
+                header={<HeaderComponent {...data.header} />}
+                page={data.page}
+            />
         );
     });
     it('Render AppComponent title', () => {
-        expect(wrapper.find('.header__title').text()).toBe(data.title);
+        expect(wrapper.find('.header__title').text()).toBe(data.header.title);
     });
     it('Render AppComponent content', () => {
         expect(wrapper.find('.content').text()).toBe('Hello!');
@@ -28,7 +30,7 @@ describe('<AppComponent />', () => {
     it('AppComponent actions', () => {
         wrapper.find('.header__close').simulate('click');
         wrapper.find('.header__action').simulate('click');
-        expect(data.onClose).toHaveBeenCalledTimes(1);
-        expect(data.onAction).toHaveBeenCalledTimes(1);
+        expect(data.header.onClose).toHaveBeenCalledTimes(1);
+        expect(data.header.onAction).toHaveBeenCalledTimes(1);
     });
 });

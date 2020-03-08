@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import AppComponent from 'ui/app';
+import AppContainer from 'containers/app';
 import { fetchCurrencies, setCurrency } from 'store/currency';
 import CurrenciesComponent from 'ui/currencies';
 import CurrencyComponent from 'ui/components/Currency';
@@ -12,7 +12,7 @@ import { DEFAULT_SYMBOLS } from 'config';
 export class CurrenciesContainer extends Component {
     render() {
         return (
-            <AppComponent
+            <AppContainer
                 onClose={this.onClose.bind(this)}
                 title="Currencies"
                 page={this.getCurrencies()}

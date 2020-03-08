@@ -24,6 +24,7 @@ export function fetchExchangeRates(base, symbols = DEFAULT_SYMBOLS.join(',')) {
                     return response.json();
                 })
                 .then(data => {
+                    dispatch(setNetworkError(null));
                     if (data.error) {
                         dispatch(setExchangeRatesError(data.error));
                     } else {

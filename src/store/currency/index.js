@@ -42,8 +42,8 @@ export function fetchCurrencies() {
                     )
                 );
             })
-            .catch(response => {
-                dispatch(setNetworkError(response.message));
+            .catch(error => {
+                dispatch(setNetworkError(error.message));
             });
     };
 }

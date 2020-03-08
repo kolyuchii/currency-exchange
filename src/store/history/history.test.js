@@ -2,7 +2,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import * as history from './index';
 import fetchMock from 'fetch-mock';
-import { GET_HISTORY_RATES_API_URL } from 'config';
+import { GET_HISTORY_RATES_API_URL, PERIODS_ENUM } from 'config';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -15,7 +15,7 @@ describe('History store', () => {
     it('Fetch history rates', () => {
         const base = 'GPB';
         const symbol = 'EUR';
-        const dates = history.getDates('1w');
+        const dates = history.getDatesFromPeriod(PERIODS_ENUM.WEEK);
         const startDate = dates.start;
         const endDate = dates.end;
         fetchMock.getOnce(
@@ -65,8 +65,13 @@ describe('History store', () => {
         return store
             .dispatch(history.fetchHistory(base, symbol, '1w'))
             .then(() => {
-                // return of async actions
                 expect(store.getActions()).toEqual(expectedActions);
             });
+    });
+
+    it('getDate', () => {
+        const dates = history.getDatesFromPeriod(PERIODS_ENUM.WEEK);
+        expect(dates.end.length).toBe(10);
+        expect(dates.start.length).toBe(10);
     });
 });

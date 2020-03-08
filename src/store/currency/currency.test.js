@@ -27,8 +27,30 @@ describe('Currency store', () => {
         const store = mockStore();
 
         return store.dispatch(currency.fetchCurrencies()).then(() => {
-            // return of async actions
             expect(store.getActions()).toEqual(expectedActions);
         });
+    });
+    it('Set currency', () => {
+        const store = mockStore();
+
+        store.dispatch(currency.setCurrency('from', 15));
+        expect(store.getActions()).toEqual([
+            {
+                type: currency.SET_CURRENCY_FROM,
+                currencyFrom: 15,
+            },
+        ]);
+
+        store.dispatch(currency.setCurrency('to', 10));
+        expect(store.getActions()).toEqual([
+            {
+                type: currency.SET_CURRENCY_FROM,
+                currencyFrom: 15,
+            },
+            {
+                type: currency.SET_CURRENCY_TO,
+                currencyTo: 10,
+            },
+        ]);
     });
 });

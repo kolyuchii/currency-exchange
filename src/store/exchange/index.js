@@ -4,8 +4,6 @@ const initialState = {
     exchangeRates: null,
     pockets: POCKETS,
 };
-const controller = new AbortController();
-const signal = controller.signal;
 
 export function fetchExchangeRates(base, symbols = DEFAULT_SYMBOLS.join(',')) {
     return function(dispatch) {
@@ -16,10 +14,7 @@ export function fetchExchangeRates(base, symbols = DEFAULT_SYMBOLS.join(',')) {
                 })
             );
         } else {
-            return fetch(
-                `${GET_RATES_API_URL}&base=${base}&symbols=${symbols}`,
-                { signal }
-            )
+            return fetch(`${GET_RATES_API_URL}&base=${base}&symbols=${symbols}`)
                 .then(response => {
                     return response.json();
                 })
@@ -31,8 +26,8 @@ export function fetchExchangeRates(base, symbols = DEFAULT_SYMBOLS.join(',')) {
                         dispatch(setExchangeRates(data.rates));
                     }
                 })
-                .catch(response => {
-                    dispatch(setNetworkError(response.message));
+                .catch(error => {
+                    dispatch(setNetworkError(error.message));
                 });
         }
     };

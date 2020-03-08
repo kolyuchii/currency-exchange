@@ -11,7 +11,7 @@ const initialState = {
 
 export function fetchHistory(base, symbol, period) {
     return function(dispatch) {
-        const dates = getDates(period);
+        const dates = getDatesFromPeriod(period);
         return fetch(
             `${GET_HISTORY_RATES_API_URL}?base=${base}&symbols=${symbol}&start_at=${dates.start}&end_at=${dates.end}`
         )
@@ -21,12 +21,12 @@ export function fetchHistory(base, symbol, period) {
             .then(data => {
                 dispatch(setHistoryRates(data.rates));
             })
-            .catch(response => {
-                dispatch(setNetworkError(response.message));
+            .catch(error => {
+                dispatch(setNetworkError(error.message));
             });
     };
 }
-export function getDates(period) {
+export function getDatesFromPeriod(period) {
     const periodInDays = PERIODS_MAP[period] || MAX_HISTORY_RATE_PERIOD;
     const currentDate = new Date();
     return {
@@ -36,11 +36,11 @@ export function getDates(period) {
         end: getDate(),
     };
 }
-function getDate(date) {
+export function getDate(date) {
     const currentDate = date || new Date();
-    return `${currentDate.getFullYear()}-${(
-        currentDate.getMonth() + 1
-    ).padStart(2, '0')}-${currentDate.getDate().padStart(2, '0')}`;
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    return `${currentDate.getFullYear()}-${month}-${day}`;
 }
 export const SET_HISTORY_RATES = Symbol('SET_HISTORY_RATES');
 export function setHistoryRates(historyRates) {

@@ -35,8 +35,27 @@ describe('Exchange store', () => {
         return store
             .dispatch(exchange.fetchExchangeRates(base, symbols))
             .then(() => {
-                // return of async actions
                 expect(store.getActions()).toEqual(expectedActions);
             });
+    });
+    it('Set pockets', () => {
+        const pockets = {
+            GPB: {
+                balance: 20,
+            },
+            EUR: {
+                balance: 10,
+            },
+        };
+        const expectedActions = [
+            {
+                type: exchange.SET_POCKETS,
+                pockets,
+            },
+        ];
+        const store = mockStore();
+
+        store.dispatch(exchange.updatePockets(pockets));
+        expect(store.getActions()).toEqual(expectedActions);
     });
 });

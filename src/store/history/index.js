@@ -38,12 +38,9 @@ export function getDates(period) {
 }
 function getDate(date) {
     const currentDate = date || new Date();
-    return `${currentDate.getFullYear()}-${addZero(
+    return `${currentDate.getFullYear()}-${(
         currentDate.getMonth() + 1
-    )}-${addZero(currentDate.getDate())}`;
-}
-function addZero(num) {
-    return `0${num}`.slice(-2);
+    ).padStart(2, '0')}-${currentDate.getDate().padStart(2, '0')}`;
 }
 export const SET_HISTORY_RATES = Symbol('SET_HISTORY_RATES');
 export function setHistoryRates(historyRates) {

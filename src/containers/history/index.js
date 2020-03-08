@@ -5,7 +5,7 @@ import HistoryComponent from 'ui/history';
 import { bindActionCreators } from 'redux';
 import { fetchHistory } from 'store/history';
 import { connect } from 'react-redux';
-import { PERIODS_MAP } from 'config';
+import { PERIODS_MAP, PERIODS_ENUM } from 'config';
 import AppContainer from 'containers/app';
 import createChart, { getChartOptions } from './create-chart';
 
@@ -17,7 +17,7 @@ class HistoryContainer extends Component {
             from: this.props.match.params.from,
             to: this.props.match.params.to,
         };
-        this.currentPeriod = '1w';
+        this.currentPeriod = PERIODS_ENUM.WEEK;
         this.elChart = React.createRef();
         this.chart = null;
     }

@@ -22,10 +22,17 @@ export const POCKETS = {
 };
 export const FETCH_RATES_TIMEOUT = 10 * 1000;
 export const MAX_HISTORY_RATE_PERIOD = 7;
+export const PERIODS_ENUM = {
+    WEEK: 1,
+    MONTH: 2,
+    THREE_MONTHS: 3,
+    SIX_MONTHS: 4,
+    YEAR: 5,
+};
 export const PERIODS_MAP = {
-    '1w': 7,
-    '1m': 30,
-    '3m': 90,
-    '6m': 180,
-    '1y': 365,
+    [PERIODS_ENUM.WEEK]: 7,
+    [PERIODS_ENUM.MONTH]: 30,
+    [PERIODS_ENUM.THREE_MONTHS]: 90,
+    [PERIODS_ENUM.SIX_MONTHS]: 180,
+    [PERIODS_ENUM.YEAR]: 365,
 };

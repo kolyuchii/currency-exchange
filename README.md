@@ -9,6 +9,8 @@ In the project directory, you can run:
 ### `npm run build`
 
 ## What was done
+A demo: https://youtu.be/qQNCqIkIORE
+
 * Exchange page
 * Select currency page
 * History of the rating

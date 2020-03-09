@@ -97,4 +97,22 @@ describe('Exchange Component', () => {
                 .text()
         ).toBe('EUR');
     });
+    it('Set balance', () => {
+        wrapper.setProps({
+            exchangeRates: {
+                EUR: rate,
+            },
+        });
+        wrapper
+            .find('.exchange__slot_balance')
+            .at(0)
+            .simulate('click');
+        expect(
+            wrapper
+                .find('.exchange__slot_value')
+                .at(0)
+                .render()
+                .attr('value')
+        ).toBe(`-1000`);
+    });
 });

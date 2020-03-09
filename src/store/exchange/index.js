@@ -1,4 +1,4 @@
-import { DEFAULT_SYMBOLS, GET_RATES_API_URL, POCKETS } from 'config';
+import { DEFAULT_SYMBOLS, GET_RATES_API_URL, POCKETS, ERRORS } from 'config';
 
 const initialState = {
     exchangeRates: null,
@@ -26,8 +26,8 @@ export function fetchExchangeRates(base, symbols = DEFAULT_SYMBOLS.join(',')) {
                         dispatch(setExchangeRates(data.rates));
                     }
                 })
-                .catch(error => {
-                    dispatch(setNetworkError(error.message));
+                .catch(() => {
+                    dispatch(setNetworkError(ERRORS.oops));
                 });
         }
     };

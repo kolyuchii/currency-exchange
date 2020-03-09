@@ -1,4 +1,5 @@
 import {
+    ERRORS,
     GET_HISTORY_RATES_API_URL,
     MAX_HISTORY_RATE_PERIOD,
     PERIODS_MAP,
@@ -21,8 +22,8 @@ export function fetchHistory(base, symbol, period) {
             .then(data => {
                 dispatch(setHistoryRates(data.rates));
             })
-            .catch(error => {
-                dispatch(setNetworkError(error.message));
+            .catch(() => {
+                dispatch(setNetworkError(ERRORS.oops));
             });
     };
 }

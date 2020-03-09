@@ -1,4 +1,4 @@
-import { DEFAULT_SYMBOLS, GET_CURRENCIES_API_URL } from 'config';
+import { DEFAULT_SYMBOLS, ERRORS, GET_CURRENCIES_API_URL } from 'config';
 import { SET_NETWORK_ERROR } from '../exchange';
 
 const initialState = {
@@ -42,8 +42,8 @@ export function fetchCurrencies() {
                     )
                 );
             })
-            .catch(error => {
-                dispatch(setNetworkError(error.message));
+            .catch(() => {
+                dispatch(setNetworkError(ERRORS.oops));
             });
     };
 }

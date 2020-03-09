@@ -36,3 +36,7 @@ export const PERIODS_MAP = {
     [PERIODS_ENUM.SIX_MONTHS]: 180,
     [PERIODS_ENUM.YEAR]: 365,
 };
+
+export const ERRORS = {
+    oops: 'Oops! Something went wrong.',
+};

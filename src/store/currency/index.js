@@ -6,22 +6,8 @@ const initialState = {
     currencyTo: 'EUR',
 };
 
-// {
-//     "AED": "United Arab Emirates Dirham",
-//     "AFN": "Afghan Afghani",
-//     "ALL": "Albanian Lek",
-//     "AMD": "Armenian Dram",
-//     "ANG": "Netherlands Antillean Guilder",
-//     "AOA": "Angolan Kwanza",
-//     "ARS": "Argentine Peso",
-//     "AUD": "Australian Dollar",
-//     "AWG": "Aruban Florin",
-//     "AZN": "Azerbaijani Manat"
-// }
-
 /**
- * @param {string} base Change base currency (3-letter code, default: USD)
- * @param {string} symbols Limit results to specific currencies (comma-separated list of 3-letter codes)
+ * @return {function(*): Promise<T>}
  */
 export function fetchCurrencies() {
     return function(dispatch) {
@@ -47,6 +33,11 @@ export function fetchCurrencies() {
             });
     };
 }
+
+/**
+ * @param {string} type
+ * @param {string} value
+ */
 export function setCurrency(type, value) {
     return function(dispatch) {
         switch (type) {

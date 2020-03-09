@@ -10,6 +10,11 @@ const initialState = {
     historyRates: null,
 };
 
+/**
+ * @param {string} base
+ * @param {string} symbol
+ * @param {PERIODS_ENUM} period
+ */
 export function fetchHistory(base, symbol, period) {
     return function(dispatch) {
         const dates = getDatesFromPeriod(period);
@@ -27,6 +32,11 @@ export function fetchHistory(base, symbol, period) {
             });
     };
 }
+
+/**
+ * @param {PERIODS_ENUM} period
+ * @return {{start: string, end: string}}
+ */
 export function getDatesFromPeriod(period) {
     const periodInDays = PERIODS_MAP[period] || MAX_HISTORY_RATE_PERIOD;
     const currentDate = new Date();
@@ -34,9 +44,14 @@ export function getDatesFromPeriod(period) {
         start: getDate(
             new Date(currentDate.setDate(currentDate.getDate() - periodInDays))
         ),
-        end: getDate(),
+        end: getDate(null),
     };
 }
+
+/**
+ * @param {Date|null} date
+ * @return {string}
+ */
 export function getDate(date) {
     const currentDate = date || new Date();
     const month = String(currentDate.getMonth() + 1).padStart(2, '0');

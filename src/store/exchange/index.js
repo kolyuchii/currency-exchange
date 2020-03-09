@@ -5,6 +5,10 @@ const initialState = {
     pockets: POCKETS,
 };
 
+/**
+ * @param {string} base
+ * @param {string} symbols
+ */
 export function fetchExchangeRates(base, symbols = DEFAULT_SYMBOLS.join(',')) {
     return function(dispatch) {
         if (base === symbols) {
@@ -32,11 +36,16 @@ export function fetchExchangeRates(base, symbols = DEFAULT_SYMBOLS.join(',')) {
         }
     };
 }
+
+/**
+ * @param {object} pockets
+ */
 export function updatePockets(pockets) {
     return function(dispatch) {
         dispatch(setPockets(pockets));
     };
 }
+
 export const SET_NETWORK_ERROR = Symbol('SET_NETWORK_ERROR');
 export function setNetworkError(networkErrorMessage) {
     return {

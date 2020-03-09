@@ -16,28 +16,22 @@ import { SET_RATES } from 'store/exchange';
 describe('Utils', () => {
     it('getCurrencySign', () => {
         const sign = 'GBP';
-        const value = 10;
+        const value = '10';
         expect(getCurrencySign(sign, value)).toBe('£10');
     });
     it('getValueFrom', () => {
-        const sign = 'GBP';
-        const value = 10;
         expect(getValueFrom(10, 'GBP', { GBP: 1 })).toBe('10.00');
     });
     it('getValueTo', () => {
-        const sign = 'GBP';
-        const value = 10;
         expect(getValueTo(10, 'GBP', { GBP: 1 })).toBe('10.00');
     });
     it('getBalance', () => {
-        const sign = 'GBP';
-        const value = 10;
         expect(getBalance('GBP', POCKETS)).toBe(POCKETS['GBP'].balance);
     });
     it('parseValue', () => {
-        expect(parseValue(10)).toBe('10');
-        expect(parseValue(10.25463)).toBe('10.25');
-        expect(parseValue('dfd10')).toBe('10');
+        expect(parseValue('10')).toBe(10);
+        expect(parseValue('10.25463')).toBe(10.25);
+        expect(parseValue('dfd10')).toBe(10);
     });
 });
 

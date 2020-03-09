@@ -2,7 +2,7 @@ import { CURRENCY_ID_TO_SIGN_MAP } from 'config';
 
 /**
  * @param {string} currencyName
- * @param {string} value
+ * @param {number} value
  * @return {string}
  */
 export function getCurrencySign(currencyName, value) {
@@ -12,22 +12,24 @@ export function getCurrencySign(currencyName, value) {
 
 /**
  * @param {string} value
- * @return {string}
+ * @return {number}
  */
 export function parseValue(value) {
-    value = String(value);
+    if (value > Number.MAX_VALUE) {
+        value = String(Number.MAX_VALUE);
+    }
     value = value.replace(/[^\d.]/g, '');
     const arr = value.split('.');
     if (arr[1]) {
         arr[1] = arr[1].substr(0, 2);
     }
-    return arr.join('.');
+    return Number(arr.join('.'));
 }
 
 /**
- * @param {string} value
+ * @param {number} value
  * @param {string} currencyTo
- * @param {string} exchangeRates
+ * @param {object} exchangeRates
  * @return {string}
  */
 export function getValueFrom(value, currencyTo, exchangeRates) {
@@ -35,9 +37,9 @@ export function getValueFrom(value, currencyTo, exchangeRates) {
 }
 
 /**
- * @param {string} value
+ * @param {number} value
  * @param {string} currencyTo
- * @param {string} exchangeRates
+ * @param {object} exchangeRates
  * @return {string}
  */
 export function getValueTo(value, currencyTo, exchangeRates) {

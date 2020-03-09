@@ -44,6 +44,7 @@ describe('Utils', () => {
 describe('Exchange Component', () => {
     let wrapper = null;
     const rate = 0.2323;
+    const push = jest.fn();
     beforeEach(() => {
         wrapper = mount(
             <Provider store={store}>
@@ -51,6 +52,9 @@ describe('Exchange Component', () => {
                     currencyFrom="GBP"
                     currencyTo="EUR"
                     pockets={POCKETS}
+                    history={{
+                        push,
+                    }}
                 />
             </Provider>
         );
@@ -97,7 +101,7 @@ describe('Exchange Component', () => {
                 .text()
         ).toBe('EUR');
     });
-    it('Set balance', () => {
+    it('Set balance from', () => {
         wrapper.setProps({
             exchangeRates: {
                 EUR: rate,
@@ -114,5 +118,34 @@ describe('Exchange Component', () => {
                 .render()
                 .attr('value')
         ).toBe(`-1000`);
+        expect(
+            wrapper
+                .find('.exchange__button')
+                .render()
+                .attr('disabled')
+        ).toBe();
+    });
+    it('Set balance to', () => {
+        wrapper.setProps({
+            exchangeRates: {
+                EUR: rate,
+            },
+        });
+        wrapper.find('.exchange__actions_swap').simulate('click');
+        wrapper
+            .find('.exchange__slot_balance')
+            .at(1)
+            .simulate('click');
+        expect(
+            wrapper
+                .find('.exchange__slot_value')
+                .at(1)
+                .render()
+                .attr('value')
+        ).toBe(`+1000`);
+    });
+    it('Go to history', () => {
+        wrapper.find('.exchange__actions_currency-rate').simulate('click');
+        expect(push).toHaveBeenCalledTimes(1);
     });
 });

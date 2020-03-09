@@ -75,11 +75,11 @@ class ExchangeContainer extends Component {
         );
     }
     setBalanceFrom() {
-        const { currencyFrom, exchangeRates, pockets } = this.props;
+        const { currencyFrom, currencyTo, exchangeRates, pockets } = this.props;
         const balance = getBalance(currencyFrom, pockets);
         this.setState({
             valueFrom: balance,
-            valueTo: getValueTo(balance, currencyFrom, exchangeRates),
+            valueTo: getValueTo(balance, currencyTo, exchangeRates),
         });
     }
     setBalanceTo() {
@@ -102,7 +102,7 @@ class ExchangeContainer extends Component {
         const { currencyTo, exchangeRates } = this.props;
         const value = parseValue(event.currentTarget.value);
         this.setState({
-            valueFrom: getValueTo(Number(value), currencyTo, exchangeRates),
+            valueFrom: getValueFrom(Number(value), currencyTo, exchangeRates),
             valueTo: value,
         });
     }

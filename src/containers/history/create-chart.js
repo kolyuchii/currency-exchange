@@ -1,5 +1,11 @@
 import Chart from 'chart.js';
 
+/**
+ * @param {HTMLElement} element
+ * @param {object} historyRates
+ * @param {string} range
+ * @return {Chart|null}
+ */
 export default (element, historyRates, range) => {
     const context = element.current.getContext('2d');
     if (!context) {
@@ -11,6 +17,11 @@ export default (element, historyRates, range) => {
     );
 };
 
+/**
+ * @param {object} historyRates
+ * @param {string} range
+ * @return {object}
+ */
 export function getChartOptions(historyRates, range) {
     const labels = [];
     const data = [];

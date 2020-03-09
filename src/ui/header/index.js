@@ -21,7 +21,7 @@ const HeaderComponent = props => {
 HeaderComponent.propTypes = {
     onClose: PropTypes.func,
     onAction: PropTypes.func,
-    title: PropTypes.string,
+    title: PropTypes.string.isRequired,
 };
 
 export default HeaderComponent;

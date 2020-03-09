@@ -32,7 +32,7 @@ const HistoryComponent = props => {
                 id="myChart"
                 width="400"
                 height="250"
-            ></canvas>
+            />
             <ul className="history__steps">{getPeriods()}</ul>
         </div>
     );
@@ -41,7 +41,7 @@ const HistoryComponent = props => {
 HistoryComponent.propTypes = {
     chartRef: PropTypes.object,
     onClick: PropTypes.func,
-    periods: PropTypes.array,
+    periods: PropTypes.array.isRequired,
 };
 
 export default HistoryComponent;

@@ -8,7 +8,7 @@ const CurrenciesComponent = props => {
 };
 
 CurrenciesComponent.propTypes = {
-    currencies: PropTypes.array,
+    currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default CurrenciesComponent;

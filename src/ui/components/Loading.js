@@ -22,6 +22,9 @@ const LoadingComponent = props => {
     );
 };
 
+/**
+ * @param {MouseEvent} event
+ */
 function reload(event) {
     event.preventDefault();
     window.location.reload();

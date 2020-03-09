@@ -160,10 +160,7 @@ class ExchangeContainer extends Component {
         if (prevProps.exchangeRates !== this.props.exchangeRates) {
             this.clear();
             this.fetchRatesTimer = setTimeout(() => {
-                this.props.actions.fetchExchangeRates(
-                    this.props.currencyFrom,
-                    this.props.currencyTo
-                );
+                this.fetchExchangeRates();
             }, FETCH_RATES_TIMEOUT);
         }
     }

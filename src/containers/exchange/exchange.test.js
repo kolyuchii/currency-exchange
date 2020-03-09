@@ -148,4 +148,11 @@ describe('Exchange Component', () => {
         wrapper.find('.exchange__actions_currency-rate').simulate('click');
         expect(push).toHaveBeenCalledTimes(1);
     });
+    it('Click at the swap button must swap pockets', () => {
+        const currencyNames = wrapper.find('.exchange__slot_currency');
+        const previousText = currencyNames.at(0).text();
+        wrapper.find('.exchange__actions_swap').simulate('click');
+        expect(currencyNames.at(0).text() !== previousText).toBe(true);
+        expect(currencyNames.at(1).text() === previousText).toBe(true);
+    });
 });

@@ -51,7 +51,7 @@ class ExchangeContainer extends Component {
                     currencyFrom,
                     getBalance(currencyFrom, pockets)
                 )}
-                rateTo={getCurrencySign(currencyTo, exchangeRate.toFixed(4))}
+                rateTo={getCurrencySign(currencyTo, exchangeRate)}
                 balanceTo={getCurrencySign(
                     currencyTo,
                     getBalance(currencyTo, pockets)

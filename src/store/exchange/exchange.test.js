@@ -27,7 +27,7 @@ describe('Exchange store', () => {
             },
             {
                 type: exchange.SET_RATES,
-                exchangeRates: { EUR: 1.1472494694 },
+                exchangeRates: { EUR: 1.1472 },
             },
         ];
         const store = mockStore();

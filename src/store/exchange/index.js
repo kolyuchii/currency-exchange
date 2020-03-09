@@ -27,6 +27,11 @@ export function fetchExchangeRates(base, symbols = DEFAULT_SYMBOLS.join(',')) {
                     if (data.error) {
                         dispatch(setExchangeRatesError(data.error));
                     } else {
+                        for (const key in data.rates) {
+                            data.rates[key] = Number(
+                                data.rates[key].toFixed(4)
+                            );
+                        }
                         dispatch(setExchangeRates(data.rates));
                     }
                 })

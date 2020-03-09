@@ -38,4 +38,15 @@ describe('<HistoryContainer/>', () => {
     it('Render chart', () => {
         expect(wrapper.find('#myChart').length).toBe(1);
     });
+    it('Change period', () => {
+        const periods = wrapper.find('.history__steps-item');
+
+        expect(
+            periods
+                .at(0)
+                .render()
+                .attr('class')
+                .indexOf('is-active') > -1
+        ).toBe(true);
+    });
 });

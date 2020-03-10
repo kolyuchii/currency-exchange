@@ -1,10 +1,6 @@
-import {
-    ERRORS,
-    GET_HISTORY_RATES_API_URL,
-    MAX_HISTORY_RATE_PERIOD,
-    PERIODS_MAP,
-} from 'config';
+import { ERRORS, GET_HISTORY_RATES_API_URL } from 'config';
 import { SET_NETWORK_ERROR } from 'store/exchange';
+import getDatesFromPeriod from 'store/history/get-date-from-period';
 
 const initialState = {
     historyRates: null,
@@ -31,32 +27,6 @@ export function fetchHistory(base, symbol, period) {
                 dispatch(setNetworkError(ERRORS.oops));
             });
     };
-}
-
-/**
- * @param {PERIODS_ENUM} period
- * @return {{start: string, end: string}}
- */
-export function getDatesFromPeriod(period) {
-    const periodInDays = PERIODS_MAP[period] || MAX_HISTORY_RATE_PERIOD;
-    const currentDate = new Date();
-    return {
-        start: getDate(
-            new Date(currentDate.setDate(currentDate.getDate() - periodInDays))
-        ),
-        end: getDate(null),
-    };
-}
-
-/**
- * @param {Date|null} date
- * @return {string}
- */
-export function getDate(date) {
-    const currentDate = date || new Date();
-    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-    const day = String(currentDate.getDate()).padStart(2, '0');
-    return `${currentDate.getFullYear()}-${month}-${day}`;
 }
 export const SET_HISTORY_RATES = Symbol('SET_HISTORY_RATES');
 export function setHistoryRates(historyRates) {

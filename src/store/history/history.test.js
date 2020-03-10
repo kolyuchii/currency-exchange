@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import * as history from './index';
 import fetchMock from 'fetch-mock';
 import { GET_HISTORY_RATES_API_URL, PERIODS_ENUM } from 'config';
+import getDatesFromPeriod from './get-date-from-period';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -15,7 +16,7 @@ describe('History store', () => {
     it('Fetch history rates', () => {
         const base = 'GPB';
         const symbol = 'EUR';
-        const dates = history.getDatesFromPeriod(PERIODS_ENUM.WEEK);
+        const dates = getDatesFromPeriod(PERIODS_ENUM.WEEK);
         const startDate = dates.start;
         const endDate = dates.end;
         fetchMock.getOnce(
@@ -70,7 +71,7 @@ describe('History store', () => {
     });
 
     it('getDate', () => {
-        const dates = history.getDatesFromPeriod(PERIODS_ENUM.WEEK);
+        const dates = getDatesFromPeriod(PERIODS_ENUM.WEEK);
         expect(dates.end.length).toBe(10);
         expect(dates.start.length).toBe(10);
     });

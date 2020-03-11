@@ -76,7 +76,7 @@ class HistoryContainer extends Component<HistoryProps & RouteProps, HistoryState
         }
     }
 
-    changePeriod(event) {
+    changePeriod(event: React.MouseEvent<HTMLDivElement>) {
         const period = event.currentTarget.id;
         if (period && this.currentPeriod !== period) {
             this.currentPeriod = period;

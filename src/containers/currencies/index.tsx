@@ -31,7 +31,7 @@ export class CurrenciesContainer extends Component<CurrenciesProps & RouteProps>
         if (!this.props.currencies) {
             return null;
         }
-        const currencies: React.ReactNode[] = this.props.currencies.map((currency: string[], index) => {
+        const currencies: React.ReactNode[] = this.props.currencies.map((currency: string[], index: number) => {
             const [id, description] = currency;
             return (
                 <CurrencyComponent

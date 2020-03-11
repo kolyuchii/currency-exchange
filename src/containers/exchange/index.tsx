@@ -14,16 +14,14 @@ import {
     getValueTo,
     getBalance,
     getCurrencySign,
+    ExchangeRates,
 } from './utils';
 
-interface Rates {
-    [key: string]: number;
-}
 interface ExchangeProps {
     actions: any;
     currencyFrom: string;
     currencyTo: string;
-    exchangeRates: Rates,
+    exchangeRates: ExchangeRates,
     pockets: Pockets,
     exchangeRatesError: string;
     networkErrorMessage: string;

@@ -18,7 +18,7 @@ export function parseValue(value: string): number {
     return Number(arr.join('.'));
 }
 
-interface ExchangeRates {
+export interface ExchangeRates {
     [key: string]: number;
 }
 export function getValueFrom(value: number, currencyTo: string, exchangeRates: ExchangeRates): string {

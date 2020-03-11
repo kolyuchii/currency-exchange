@@ -27,11 +27,8 @@ export function getValueTo(value: number, currencyTo: string, exchangeRates: Exc
     return value ? (value * exchangeRates[currencyTo]).toFixed(2) : '';
 }
 
-interface Balance {
-    balance: number;
-}
 interface Pockets {
-    [key: string]: Balance;
+    [key: string]: {balance: number};
 }
 export function getBalance(currency: string, pockets: Pockets): number {
     const pocket = pockets[currency];

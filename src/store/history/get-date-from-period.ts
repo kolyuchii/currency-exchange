@@ -1,10 +1,6 @@
 import { MAX_HISTORY_RATE_PERIOD, PERIODS_MAP } from 'config';
 
-interface RangeObject {
-    start: string;
-    end: string;
-}
-export default (period: string): RangeObject => {
+export default (period: string): {start: string, end: string} => {
     const periodInDays = PERIODS_MAP[period] || MAX_HISTORY_RATE_PERIOD;
     const currentDate = new Date();
     return {

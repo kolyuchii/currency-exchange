@@ -38,11 +38,8 @@ export function fetchExchangeRates(base: string, symbols: string = DEFAULT_SYMBO
     };
 }
 
-interface Balance {
-    balance: number;
-}
 interface Pockets {
-    [key: string]: Balance;
+    [key: string]: {balance: number};
 }
 export function updatePockets(pockets: Pockets) {
     return function(dispatch) {

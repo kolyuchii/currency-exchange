@@ -17,7 +17,7 @@ const HistoryComponent: React.FunctionComponent<HistoryProps> = props => {
         if (!props.periods) {
             return null;
         }
-        return props.periods.map((period, index) => {
+        return props.periods.map((period: Period, index: number) => {
             const periodClassNames = classnames({
                 'history__steps-item': true,
                 'is-active': period.isActive,

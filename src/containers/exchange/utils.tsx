@@ -1,21 +1,12 @@
 import { CURRENCY_ID_TO_SIGN_MAP } from 'config';
 
-/**
- * @param {string} currencyName
- * @param {number} value
- * @return {string}
- */
-export function getCurrencySign(currencyName, value) {
+export function getCurrencySign(currencyName: string, value: number): string {
     const sign = CURRENCY_ID_TO_SIGN_MAP[currencyName] || '';
     return `${sign}${value}`;
 }
 
-/**
- * @param {string} value
- * @return {number}
- */
-export function parseValue(value) {
-    if (value > Number.MAX_VALUE) {
+export function parseValue(value: string): number {
+    if (Number(value) > Number.MAX_VALUE) {
         value = String(Number.MAX_VALUE);
     }
     value = value.replace(/[^\d.]/g, '');
@@ -26,32 +17,23 @@ export function parseValue(value) {
     return Number(arr.join('.'));
 }
 
-/**
- * @param {number} value
- * @param {string} currencyTo
- * @param {object} exchangeRates
- * @return {string}
- */
-export function getValueFrom(value, currencyTo, exchangeRates) {
+interface ExchangeRates {
+    [key: string]: number;
+}
+export function getValueFrom(value: number, currencyTo: string, exchangeRates: ExchangeRates): string {
     return value ? (value / exchangeRates[currencyTo]).toFixed(2) : '';
 }
-
-/**
- * @param {number} value
- * @param {string} currencyTo
- * @param {object} exchangeRates
- * @return {string}
- */
-export function getValueTo(value, currencyTo, exchangeRates) {
+export function getValueTo(value: number, currencyTo: string, exchangeRates: ExchangeRates): string {
     return value ? (value * exchangeRates[currencyTo]).toFixed(2) : '';
 }
 
-/**
- * @param {string} currency
- * @param {object} pockets
- * @return {number}
- */
-export function getBalance(currency, pockets) {
+interface Balance {
+    balance: number;
+}
+interface Pockets {
+    [key: string]: Balance;
+}
+export function getBalance(currency: string, pockets: Pockets): number {
     const pocket = pockets[currency];
     if (pocket) {
         return Number(pocket.balance);

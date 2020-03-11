@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { RouteProps } from 'react-router';
 import { bindActionCreators } from 'redux';
 
 import AppContainer from 'containers/app';
@@ -16,17 +17,16 @@ import {
 } from './utils';
 
 interface Pocket {
-
+    [key: string]: number;
 }
 interface Rates {
-
+    [key: string]: number;
 }
 interface ExchangeProps {
     actions: any;
     currencyFrom: string;
     currencyTo: string;
     exchangeRates: Rates,
-    history: any,
     pockets: Pocket,
     exchangeRatesError: string;
     networkErrorMessage: string;
@@ -36,9 +36,8 @@ interface ExchangeState {
     valueTo: string;
 }
 
-class ExchangeContainer extends Component<ExchangeProps, ExchangeState> {
+class ExchangeContainer extends Component<ExchangeProps & RouteProps, ExchangeState> {
     fetchRatesTimer: number;
-    currentPeriod: string;
     constructor(props) {
         super(props);
         this.fetchExchangeRates = this.fetchExchangeRates.bind(this);
@@ -112,7 +111,7 @@ class ExchangeContainer extends Component<ExchangeProps, ExchangeState> {
             valueTo: String(balance),
         });
     }
-    onValueFromChanged(event) {
+    onValueFromChanged(event: React.FormEvent<HTMLInputElement>) {
         const { currencyTo, exchangeRates } = this.props;
         const value = parseValue(event.currentTarget.value);
         this.setState({
@@ -120,7 +119,7 @@ class ExchangeContainer extends Component<ExchangeProps, ExchangeState> {
             valueTo: getValueTo(value, currencyTo, exchangeRates),
         });
     }
-    onValueToChanged(event) {
+    onValueToChanged(event: React.FormEvent<HTMLInputElement>) {
         const { currencyTo, exchangeRates } = this.props;
         const value = parseValue(event.currentTarget.value);
         this.setState({
@@ -128,7 +127,7 @@ class ExchangeContainer extends Component<ExchangeProps, ExchangeState> {
             valueTo: String(value),
         });
     }
-    onSubmit(event) {
+    onSubmit(event: React.FormEvent<EventTarget>) {
         event.preventDefault();
         const { currencyFrom, currencyTo, pockets } = this.props;
 
@@ -175,7 +174,7 @@ class ExchangeContainer extends Component<ExchangeProps, ExchangeState> {
             `/history/${this.props.currencyFrom}/${this.props.currencyTo}`
         );
     }
-    onChangeCurrency(slotName) {
+    onChangeCurrency(slotName: string) {
         this.props.history.push(`/currencies/${slotName}`);
     }
     componentDidUpdate(prevProps) {

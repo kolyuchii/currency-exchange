@@ -1,10 +1,10 @@
 import React from 'react';
 
-interface Currency {
+interface Loading {
     networkErrorMessage: string;
 }
 
-const LoadingComponent: React.FunctionComponent<Currency> = props => {
+const LoadingComponent: React.FunctionComponent<Loading> = props => {
     return (
         <div className="loading">
             <h3>

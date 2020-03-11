@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { RouteProps } from 'react-router';
 
 import AppContainer from 'containers/app';
 import { fetchCurrencies, setCurrency } from 'store/currency';
@@ -11,13 +12,11 @@ import { DEFAULT_SYMBOLS } from 'config';
 interface CurrenciesProps {
     currencies: string[][];
     actions: any;
-    history: any;
     currencyFrom: string;
     currencyTo: string;
-    match: any;
 }
 
-export class CurrenciesContainer extends Component<CurrenciesProps> {
+export class CurrenciesContainer extends Component<CurrenciesProps & RouteProps> {
     render() {
         return (
             <AppContainer
@@ -48,7 +47,7 @@ export class CurrenciesContainer extends Component<CurrenciesProps> {
         return <CurrenciesComponent currencies={currencies} />;
     }
 
-    onClick(event) {
+    onClick(event: React.FormEvent<HTMLInputElement>) {
         this.props.actions.setCurrency(
             this.props.match.params.slot,
             event.currentTarget.id

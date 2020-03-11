@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import AppContainer from 'containers/app';
 import ExchangeComponent from 'ui/exchange';
-import { fetchExchangeRates, updatePockets } from 'store/exchange';
+import { fetchExchangeRates, updatePockets, Pockets } from 'store/exchange';
 import { setCurrency } from 'store/currency';
 import { FETCH_RATES_TIMEOUT } from 'config';
 import {
@@ -16,9 +16,6 @@ import {
     getCurrencySign,
 } from './utils';
 
-interface Pocket {
-    [key: string]: number;
-}
 interface Rates {
     [key: string]: number;
 }
@@ -27,7 +24,7 @@ interface ExchangeProps {
     currencyFrom: string;
     currencyTo: string;
     exchangeRates: Rates,
-    pockets: Pocket,
+    pockets: Pockets,
     exchangeRatesError: string;
     networkErrorMessage: string;
 }
@@ -95,7 +92,7 @@ class ExchangeContainer extends Component<ExchangeProps & RouteProps, ExchangeSt
             />
         );
     }
-    setBalanceFrom() {
+    setBalanceFrom(): void {
         const { currencyFrom, currencyTo, exchangeRates, pockets } = this.props;
         const balance = getBalance(currencyFrom, pockets);
         this.setState({
@@ -103,7 +100,7 @@ class ExchangeContainer extends Component<ExchangeProps & RouteProps, ExchangeSt
             valueTo: getValueTo(balance, currencyTo, exchangeRates),
         });
     }
-    setBalanceTo() {
+    setBalanceTo(): void {
         const { currencyTo, exchangeRates, pockets } = this.props;
         const balance = getBalance(currencyTo, pockets);
         this.setState({
@@ -111,7 +108,7 @@ class ExchangeContainer extends Component<ExchangeProps & RouteProps, ExchangeSt
             valueTo: String(balance),
         });
     }
-    onValueFromChanged(event: React.FormEvent<HTMLInputElement>) {
+    onValueFromChanged(event: React.FormEvent<HTMLInputElement>): void {
         const { currencyTo, exchangeRates } = this.props;
         const value = parseValue(event.currentTarget.value);
         this.setState({
@@ -119,7 +116,7 @@ class ExchangeContainer extends Component<ExchangeProps & RouteProps, ExchangeSt
             valueTo: getValueTo(value, currencyTo, exchangeRates),
         });
     }
-    onValueToChanged(event: React.FormEvent<HTMLInputElement>) {
+    onValueToChanged(event: React.FormEvent<HTMLInputElement>): void {
         const { currencyTo, exchangeRates } = this.props;
         const value = parseValue(event.currentTarget.value);
         this.setState({

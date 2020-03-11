@@ -1,4 +1,5 @@
 import { CURRENCY_ID_TO_SIGN_MAP } from 'config';
+import { Pockets } from 'store/exchange';
 
 export function getCurrencySign(currencyName: string, value: number): string {
     const sign = CURRENCY_ID_TO_SIGN_MAP[currencyName] || '';
@@ -27,9 +28,6 @@ export function getValueTo(value: number, currencyTo: string, exchangeRates: Exc
     return value ? (value * exchangeRates[currencyTo]).toFixed(2) : '';
 }
 
-interface Pockets {
-    [key: string]: {balance: number};
-}
 export function getBalance(currency: string, pockets: Pockets): number {
     const pocket = pockets[currency];
     if (pocket) {

@@ -6,11 +6,7 @@ import { fetchHistory } from 'store/history';
 import { connect } from 'react-redux';
 import { PERIODS_MAP, PERIODS_ENUM } from 'config';
 import AppContainer from 'containers/app';
-import createChart, { getChartOptions } from './create-chart';
-
-interface HistoryRates {
-    [key: string]: string;
-}
+import createChart, { getChartOptions, HistoryRates } from './create-chart';
 
 interface HistoryProps {
     actions: any;

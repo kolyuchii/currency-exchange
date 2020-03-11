@@ -1,14 +1,14 @@
 import Chart from 'chart.js';
 import React from "react";
 
-interface Range {
+export interface Range {
     from: string;
     to: string;
 }
-interface HistoryRates {
+export interface HistoryRates {
     [key: string]: string;
 }
-interface ChartOptions {
+export interface ChartOptions {
     type: string;
     data: any;
     options: any;

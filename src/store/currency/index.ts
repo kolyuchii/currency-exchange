@@ -6,9 +6,6 @@ const initialState = {
     currencyTo: 'EUR',
 };
 
-/**
- * @return {function(*): Promise<T>}
- */
 export function fetchCurrencies() {
     return function(dispatch) {
         return fetch(GET_CURRENCIES_API_URL)
@@ -34,11 +31,7 @@ export function fetchCurrencies() {
     };
 }
 
-/**
- * @param {string} type
- * @param {string} value
- */
-export function setCurrency(type, value) {
+export function setCurrency(type: string, value: string) {
     return function(dispatch) {
         switch (type) {
             case 'from':

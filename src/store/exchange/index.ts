@@ -5,11 +5,7 @@ const initialState = {
     pockets: POCKETS,
 };
 
-/**
- * @param {string} base
- * @param {string} symbols
- */
-export function fetchExchangeRates(base, symbols = DEFAULT_SYMBOLS.join(',')) {
+export function fetchExchangeRates(base: string, symbols: string = DEFAULT_SYMBOLS.join(',')) {
     return function(dispatch) {
         if (base === symbols) {
             dispatch(
@@ -42,10 +38,13 @@ export function fetchExchangeRates(base, symbols = DEFAULT_SYMBOLS.join(',')) {
     };
 }
 
-/**
- * @param {object} pockets
- */
-export function updatePockets(pockets) {
+interface Balance {
+    balance: number;
+}
+interface Pockets {
+    [key: string]: Balance;
+}
+export function updatePockets(pockets: Pockets) {
     return function(dispatch) {
         dispatch(setPockets(pockets));
     };

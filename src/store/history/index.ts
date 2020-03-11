@@ -6,12 +6,7 @@ const initialState = {
     historyRates: null,
 };
 
-/**
- * @param {string} base
- * @param {string} symbol
- * @param {PERIODS_ENUM} period
- */
-export function fetchHistory(base, symbol, period) {
+export function fetchHistory(base: string, symbol: string, period: string) {
     return function(dispatch) {
         const dates = getDatesFromPeriod(period);
         return fetch(

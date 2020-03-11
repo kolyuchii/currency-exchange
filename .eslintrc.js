@@ -9,7 +9,7 @@ module.exports = {
     },
     rules: {
         'react/jsx-uses-react': 2,
-        'react/prop-types': 1,
+        'react/prop-types': 0,
     },
     env: {
         browser: true,

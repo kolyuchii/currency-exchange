@@ -2,9 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import AppComponent from 'ui/app';
 import HeaderComponent from 'ui/header';
-import PropTypes from 'prop-types';
 
-const AppContainer = props => {
+interface AppProps {
+    page: React.ReactNode;
+    onClose: () => Event;
+    onAction: () => Event;
+    title: string;
+    networkErrorMessage: string;
+}
+
+const AppContainer: React.FunctionComponent<AppProps> = props => {
     return (
         <AppComponent
             networkErrorMessage={props.networkErrorMessage}
@@ -18,14 +25,6 @@ const AppContainer = props => {
             }
         />
     );
-};
-
-AppContainer.propTypes = {
-    page: PropTypes.element,
-    onClose: PropTypes.func,
-    onAction: PropTypes.func,
-    title: PropTypes.string,
-    networkErrorMessage: PropTypes.string,
 };
 
 function mapStateToProps(state) {

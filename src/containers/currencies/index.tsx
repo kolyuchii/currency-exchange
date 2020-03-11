@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
 import AppContainer from 'containers/app';
 import { fetchCurrencies, setCurrency } from 'store/currency';
@@ -9,7 +8,16 @@ import CurrenciesComponent from 'ui/currencies';
 import CurrencyComponent from 'ui/components/Currency';
 import { DEFAULT_SYMBOLS } from 'config';
 
-export class CurrenciesContainer extends Component {
+interface CurrenciesProps {
+    currencies: string[][];
+    actions: any;
+    history: any;
+    currencyFrom: string;
+    currencyTo: string;
+    match: any;
+}
+
+export class CurrenciesContainer extends Component<CurrenciesProps> {
     render() {
         return (
             <AppContainer
@@ -24,7 +32,7 @@ export class CurrenciesContainer extends Component {
         if (!this.props.currencies) {
             return null;
         }
-        const currencies = this.props.currencies.map((currency, index) => {
+        const currencies: React.ReactNode[] = this.props.currencies.map((currency: string[], index) => {
             const [id, description] = currency;
             return (
                 <CurrencyComponent
@@ -66,15 +74,6 @@ export class CurrenciesContainer extends Component {
         }
     }
 }
-
-CurrenciesContainer.propTypes = {
-    currencies: PropTypes.array,
-    actions: PropTypes.object,
-    history: PropTypes.object,
-    currencyFrom: PropTypes.string,
-    currencyTo: PropTypes.string,
-    match: PropTypes.object,
-};
 
 function mapStateToProps(state) {
     return {

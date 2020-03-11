@@ -5,6 +5,10 @@
   "dependencies": {
     "@babel/core": "7.6.0",
     "@svgr/webpack": "4.3.2",
+    "@types/jest": "^25.1.4",
+    "@types/node": "^13.9.0",
+    "@types/react": "^16.9.23",
+    "@types/react-dom": "^16.9.5",
     "@typescript-eslint/eslint-plugin": "^2.2.0",
     "@typescript-eslint/parser": "^2.2.0",
     "babel-jest": "^24.9.0",
@@ -63,6 +67,7 @@
     "style-loader": "1.0.0",
     "terser-webpack-plugin": "1.4.1",
     "ts-pnp": "1.1.4",
+    "typescript": "^3.8.3",
     "url-loader": "2.1.0",
     "webpack": "4.41.0",
     "webpack-dev-server": "3.2.1",
@@ -100,7 +105,7 @@
     ],
     "setupFiles": [
       "react-app-polyfill/jsdom",
-      "<rootDir>/src/setupTests.js"
+      "<rootDir>/src/setupTests.ts"
     ],
     "setupFilesAfterEnv": [],
     "testMatch": [
@@ -123,7 +128,7 @@
       "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
       "^ui(.*)$": "<rootDir>/src/ui$1",
       "^store(.*)$": "<rootDir>/src/store$1",
-      "^config$": "<rootDir>/src/config.js",
+      "^config$": "<rootDir>/src/config.ts",
       "^containers(.*)$": "<rootDir>/src/containers$1"
     },
     "moduleFileExtensions": [

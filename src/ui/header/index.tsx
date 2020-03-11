@@ -1,8 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './header.scss';
 
-const HeaderComponent = props => {
+interface HeaderProps {
+    onClose: () => Event;
+    onAction: () => Event;
+    title: string;
+}
+
+const HeaderComponent: React.FunctionComponent<HeaderProps> = props => {
     return (
         <header className="header">
             <div
@@ -16,12 +21,6 @@ const HeaderComponent = props => {
             />
         </header>
     );
-};
-
-HeaderComponent.propTypes = {
-    onClose: PropTypes.func,
-    onAction: PropTypes.func,
-    title: PropTypes.string.isRequired,
 };
 
 export default HeaderComponent;

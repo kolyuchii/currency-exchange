@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import PropTypes from 'prop-types';
 
 import AppContainer from 'containers/app';
 import ExchangeComponent from 'ui/exchange';
@@ -16,7 +15,30 @@ import {
     getCurrencySign,
 } from './utils';
 
-class ExchangeContainer extends Component {
+interface Pocket {
+
+}
+interface Rates {
+
+}
+interface ExchangeProps {
+    actions: any;
+    currencyFrom: string;
+    currencyTo: string;
+    exchangeRates: Rates,
+    history: any,
+    pockets: Pocket,
+    exchangeRatesError: string;
+    networkErrorMessage: string;
+}
+interface ExchangeState {
+    valueFrom: string;
+    valueTo: string;
+}
+
+class ExchangeContainer extends Component<ExchangeProps, ExchangeState> {
+    fetchRatesTimer: number;
+    currentPeriod: string;
     constructor(props) {
         super(props);
         this.fetchExchangeRates = this.fetchExchangeRates.bind(this);
@@ -78,7 +100,7 @@ class ExchangeContainer extends Component {
         const { currencyFrom, currencyTo, exchangeRates, pockets } = this.props;
         const balance = getBalance(currencyFrom, pockets);
         this.setState({
-            valueFrom: balance,
+            valueFrom: String(balance),
             valueTo: getValueTo(balance, currencyTo, exchangeRates),
         });
     }
@@ -87,14 +109,14 @@ class ExchangeContainer extends Component {
         const balance = getBalance(currencyTo, pockets);
         this.setState({
             valueFrom: getValueFrom(balance, currencyTo, exchangeRates),
-            valueTo: balance,
+            valueTo: String(balance),
         });
     }
     onValueFromChanged(event) {
         const { currencyTo, exchangeRates } = this.props;
         const value = parseValue(event.currentTarget.value);
         this.setState({
-            valueFrom: value,
+            valueFrom: String(value),
             valueTo: getValueTo(value, currencyTo, exchangeRates),
         });
     }
@@ -103,7 +125,7 @@ class ExchangeContainer extends Component {
         const value = parseValue(event.currentTarget.value);
         this.setState({
             valueFrom: getValueFrom(value, currencyTo, exchangeRates),
-            valueTo: value,
+            valueTo: String(value),
         });
     }
     onSubmit(event) {
@@ -113,7 +135,7 @@ class ExchangeContainer extends Component {
         const balanceFrom = getBalance(currencyFrom, pockets);
         const balanceTo = getBalance(currencyTo, pockets);
         if (
-            this.state.valueFrom <= balanceFrom &&
+            Number(this.state.valueFrom) <= balanceFrom &&
             currencyFrom !== currencyTo
         ) {
             this.props.actions.updatePockets({
@@ -159,7 +181,7 @@ class ExchangeContainer extends Component {
     componentDidUpdate(prevProps) {
         if (prevProps.exchangeRates !== this.props.exchangeRates) {
             this.clear();
-            this.fetchRatesTimer = setTimeout(() => {
+            this.fetchRatesTimer = window.setTimeout(() => {
                 this.fetchExchangeRates();
             }, FETCH_RATES_TIMEOUT);
         }
@@ -186,17 +208,6 @@ class ExchangeContainer extends Component {
         }
     }
 }
-
-ExchangeContainer.propTypes = {
-    actions: PropTypes.object,
-    currencyFrom: PropTypes.string,
-    currencyTo: PropTypes.string,
-    exchangeRates: PropTypes.object,
-    history: PropTypes.object,
-    pockets: PropTypes.object,
-    exchangeRatesError: PropTypes.string,
-    networkErrorMessage: PropTypes.string,
-};
 
 function mapStateToProps(state) {
     return {

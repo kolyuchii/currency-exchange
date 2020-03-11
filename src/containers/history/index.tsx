@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-
+import { RouteProps } from 'react-router';
 import HistoryComponent from 'ui/history';
 import { bindActionCreators } from 'redux';
 import { fetchHistory } from 'store/history';
@@ -9,7 +8,23 @@ import { PERIODS_MAP, PERIODS_ENUM } from 'config';
 import AppContainer from 'containers/app';
 import createChart, { getChartOptions } from './create-chart';
 
-class HistoryContainer extends Component {
+interface HistoryRates {
+    [key: string]: string;
+}
+
+interface HistoryProps {
+    actions: any;
+    historyRates: HistoryRates,
+}
+interface HistoryState {
+    from: string;
+    to: string;
+}
+
+class HistoryContainer extends Component<HistoryProps & RouteProps, HistoryState> {
+    currentPeriod: string;
+    elChart: any;
+    chart: any;
     constructor(props) {
         super(props);
 
@@ -89,13 +104,6 @@ class HistoryContainer extends Component {
         this.props.history.push('/');
     }
 }
-
-HistoryContainer.propTypes = {
-    history: PropTypes.object,
-    actions: PropTypes.object,
-    match: PropTypes.object,
-    historyRates: PropTypes.object,
-};
 
 function mapStateToProps(state) {
     return {

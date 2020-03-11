@@ -1,8 +1,14 @@
 import React from 'react';
 import classnames from 'classnames';
-import PropTypes from 'prop-types';
 
-const CurrencyComponent = props => {
+interface CurrencyProps {
+    onClick: () => Event;
+    id: string;
+    description: string;
+    isActive: boolean;
+}
+
+const CurrencyComponent: React.FunctionComponent<CurrencyProps> = props => {
     const currency = classnames({
         'is-active': props.isActive,
         currency: true,
@@ -13,7 +19,7 @@ const CurrencyComponent = props => {
     });
     return (
         <div onClick={props.onClick} id={props.id} className={currency}>
-            <div className={flag}></div>
+            <div className={flag}/>
             <div className="currency__info">
                 <h4 className="currency__name">{props.id}</h4>
                 <span className="currency__description">
@@ -22,13 +28,6 @@ const CurrencyComponent = props => {
             </div>
         </div>
     );
-};
-
-CurrencyComponent.propTypes = {
-    onClick: PropTypes.func,
-    id: PropTypes.string,
-    description: PropTypes.string,
-    isActive: PropTypes.bool,
 };
 
 export default CurrencyComponent;

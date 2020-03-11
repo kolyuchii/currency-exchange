@@ -1,9 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './app.scss';
 import LoadingComponent from 'ui/components/Loading';
 
-const AppComponent = props => {
+interface AppProps {
+    page: React.ReactNode;
+    header: React.ReactNode;
+    networkErrorMessage: string;
+}
+
+const AppComponent: React.FunctionComponent<AppProps> = props => {
     function getLoading() {
         return (
             <LoadingComponent networkErrorMessage={props.networkErrorMessage} />
@@ -15,12 +20,6 @@ const AppComponent = props => {
             <section className="content">{props.page || getLoading()}</section>
         </div>
     );
-};
-
-AppComponent.propTypes = {
-    page: PropTypes.element,
-    header: PropTypes.element,
-    networkErrorMessage: PropTypes.string,
 };
 
 export default AppComponent;

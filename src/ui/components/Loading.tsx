@@ -1,7 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-const LoadingComponent = props => {
+interface Currency {
+    networkErrorMessage: string;
+}
+
+const LoadingComponent: React.FunctionComponent<Currency> = props => {
     return (
         <div className="loading">
             <h3>
@@ -10,7 +13,7 @@ const LoadingComponent = props => {
                         <p className="error__text">
                             {props.networkErrorMessage}
                         </p>
-                        <a href="/" onClick={reload}>
+                        <a href="/" onClick={() => reload}>
                             Reload the page and try again
                         </a>
                     </div>
@@ -22,16 +25,9 @@ const LoadingComponent = props => {
     );
 };
 
-/**
- * @param {MouseEvent} event
- */
-function reload(event) {
+function reload(event: MouseEvent) {
     event.preventDefault();
     window.location.reload();
 }
-
-LoadingComponent.propTypes = {
-    networkErrorMessage: PropTypes.string,
-};
 
 export default LoadingComponent;

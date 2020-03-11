@@ -1,9 +1,30 @@
 import React from 'react';
 import './exchange.scss';
-import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-const ExchangeComponent = props => {
+interface ExchangeProps {
+    rateFrom: string;
+    currencyFrom: string;
+    balanceFrom: string;
+    rateTo: string;
+    balanceTo: string;
+    currencyTo: string;
+    exchangeRatesError: string;
+    networkErrorMessage: string;
+    valueFrom: string;
+    valueTo: string;
+
+    onSubmit: () => Event;
+    onSwap: () => Event;
+    onRateClick: () => Event;
+    onChangeCurrency: () => Event;
+    onValueFromChanged: () => Event;
+    onValueToChanged: () => Event;
+    setBalanceFrom: () => Event;
+    setBalanceTo: () => Event;
+}
+
+const ExchangeComponent: React.FunctionComponent<ExchangeProps> = props => {
     const {
         rateFrom,
         currencyFrom,
@@ -29,11 +50,11 @@ const ExchangeComponent = props => {
     const clearBalanceFrom = Number(balanceFrom.replace(/\D/, ''));
     const isButtonDisabled =
         currencyFrom === currencyTo ||
-        Math.abs(valueFrom) > clearBalanceFrom ||
-        Math.abs(valueFrom) <= 0;
+        Math.abs(Number(valueFrom)) > clearBalanceFrom ||
+        Math.abs(Number(valueFrom)) <= 0;
     const balanceClassNames = classnames({
         'is-red':
-            clearBalanceFrom === 0 || clearBalanceFrom < Math.abs(valueFrom),
+            clearBalanceFrom === 0 || clearBalanceFrom < Math.abs(Number(valueFrom)),
         exchange__slot_balance: true,
     });
     const buttonClassNames = classnames({
@@ -110,28 +131,6 @@ const ExchangeComponent = props => {
             </div>
         </form>
     );
-};
-
-ExchangeComponent.propTypes = {
-    rateFrom: PropTypes.string,
-    currencyFrom: PropTypes.string,
-    balanceFrom: PropTypes.string,
-    rateTo: PropTypes.string,
-    balanceTo: PropTypes.string,
-    currencyTo: PropTypes.string,
-    exchangeRatesError: PropTypes.string,
-    networkErrorMessage: PropTypes.string,
-    valueFrom: PropTypes.string,
-    valueTo: PropTypes.string,
-
-    onSubmit: PropTypes.func,
-    onSwap: PropTypes.func,
-    onRateClick: PropTypes.func,
-    onChangeCurrency: PropTypes.func,
-    onValueFromChanged: PropTypes.func,
-    onValueToChanged: PropTypes.func,
-    setBalanceFrom: PropTypes.func,
-    setBalanceTo: PropTypes.func,
 };
 
 export default ExchangeComponent;

@@ -1,7 +1,10 @@
 {
   "rootDir": "./src",
   "compilerOptions": {
+    "jsx": "react",
     "baseUrl": "./src",
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
     "paths": {
       "*": ["*"]
     }

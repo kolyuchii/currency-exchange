@@ -1,9 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './history.scss';
 import classnames from 'classnames';
 
-const HistoryComponent = props => {
+interface Period {
+    id: string;
+    isActive: boolean;
+}
+interface HistoryProps {
+    chartRef: React.Ref<HTMLCanvasElement>;
+    onClick: () => Event;
+    periods: Period[];
+}
+
+const HistoryComponent: React.FunctionComponent<HistoryProps> = props => {
     function getPeriods() {
         if (!props.periods) {
             return null;
@@ -36,12 +45,6 @@ const HistoryComponent = props => {
             <ul className="history__steps">{getPeriods()}</ul>
         </div>
     );
-};
-
-HistoryComponent.propTypes = {
-    chartRef: PropTypes.object,
-    onClick: PropTypes.func,
-    periods: PropTypes.array.isRequired,
 };
 
 export default HistoryComponent;

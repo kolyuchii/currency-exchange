@@ -23,7 +23,7 @@ interface HistoryState {
 
 class HistoryContainer extends Component<HistoryProps & RouteProps, HistoryState> {
     currentPeriod: string;
-    elChart: any;
+    elChart: React.MutableRefObject<HTMLCanvasElement>;
     chart: any;
     constructor(props) {
         super(props);

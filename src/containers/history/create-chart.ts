@@ -1,12 +1,19 @@
 import Chart from 'chart.js';
+import React from "react";
 
-/**
- * @param {HTMLElement} element
- * @param {object} historyRates
- * @param {string} range
- * @return {Chart|null}
- */
-export default (element, historyRates, range) => {
+interface Range {
+    from: string;
+    to: string;
+}
+interface HistoryRates {
+    [key: string]: string;
+}
+interface ChartOptions {
+    type: string;
+    data: any;
+    options: any;
+}
+export default (element: React.MutableRefObject<HTMLCanvasElement>, historyRates: HistoryRates, range: Range) => {
     const context = element.current.getContext('2d');
     if (!context) {
         return null;
@@ -17,12 +24,7 @@ export default (element, historyRates, range) => {
     );
 };
 
-/**
- * @param {object} historyRates
- * @param {string} range
- * @return {object}
- */
-export function getChartOptions(historyRates, range) {
+export function getChartOptions(historyRates: HistoryRates, range: Range): ChartOptions {
     const labels = [];
     const data = [];
     Object.entries(historyRates).forEach(item => {
